@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: NuaaAnt
+    password: nuaaant
+    url: jdbc:mysql://47.101.201.160:3306/NuaaAnt
+    driver-class-name: com.mysql.cj.jdbc.Driver
