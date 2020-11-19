@@ -1,2 +1,2 @@
-<button bindtap="tap">Click</button>
-<view>{{msg}}</view>
+<mp-toptips msg="{{toptips_msg}}" type="{{toptips_type}}" show="{{toptips_show}}"></mp-toptips>
+<button bindtap="login">Login</button>

@@ -1,21 +1,15 @@
-const app = getApp();
-const wxp = app.wxp;
+const util = require("../../utils/util.js");
 
 Page({
   data: {
-    msg: ""
+    toptips_msg: "",
+    toptips_type: "",
+    toptips_show: false
   },
 
-  tap: function () {
-    const that = this;
-
-    wxp.request({
-      url: 'http://localhost:8080/hello'
-    }).then(r => {
-      that.setData({
-        msg: r.data
-      });
+  login: function () {
+    util.tryCatch(this, async () => {
+      console.log(await util.login());
     });
-
   }
 })
