@@ -7,44 +7,60 @@ export const to = (promise) => {
   return promise
     .then(data => [null, data])
     .catch(err => [err, null]);
-}
+};
 
 export const tryCatch = async (that, func) => {
   try {
     await func();
   } catch (err) {
+    console.error(err);
     that.setData({
-      toptips_msg: err.errMsg,
+      toptips_msg: err.errMsg == undefined ? err : err.errMsg,
       toptips_type: "error",
       toptips_show: true
     });
   }
-}
+};
+
+export const get = async (subUrl, data) => {
+  const response = await wxp.request({
+    url: url + subUrl,
+    data: data,
+  });
+  if (response.statusCode != 200)
+    throw response.data;
+  return response.data;
+};
+
+export const post = async (subUrl, data) => {
+  const response = await wxp.request({
+    url: url + subUrl,
+    method: "POST",
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+  });
+  if (response.statusCode != 200)
+    throw response.data;
+  return response.data;
+};
 
 export const login = async () => {
-  let [err, data] = await to(wxp.checkSession());
-  let sessionID = null;
-  if (err != null) {
+  let [err1] = await to(wxp.checkSession());
+  let [err2, data] = await to(wxp.getStorage({
+    key: "SessionID"
+  }));
+  if (err1 != null || err2 != null) {
     data = await wxp.login();
-    data = await wxp.request({
-      url: url + "/login",
-      data: {
-        code: data.code
-      }
+    data = await get("/login", {
+      code: data.code
     });
-    data = data.data;
-    if (!data.success)
-      throw data;
-    sessionID = data.data;
     await wxp.setStorage({
       key: "SessionID",
-      data: sessionID
+      data: data
     });
-  } else {
-    data = await wxp.getStorage({
-      key: "SessionID",
-    });
-    sessionID = data.data;
+    return data;
   }
-  return sessionID;
+  return data.data;
 };

@@ -1,0 +1,24 @@
+#avatar {
+  display: flex;
+  justify-content: center;
+  margin: 32rpx;
+}
+
+#avatarImg {
+  height: 150rpx;
+  width: 150rpx;
+  border-radius: 50%;
+  vertical-align: bottom
+}
+
+#btn-getUserInfo {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+radio {
+  margin-right: 32rpx;
+}
+
+textarea {
+  height: 150rpx;
+}

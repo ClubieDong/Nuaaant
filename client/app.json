@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/editUserInfo/editUserInfo",
     "pages/index/index"
   ],
   "window": {
