@@ -32,19 +32,19 @@ Page({
         sessionID: await util.login()
       });
       this.setData({
-        avatarUrl: data.avatarUrl,
-        nickName: data.nickName,
+        avatarUrl: util.emptify(data.avatarUrl),
+        nickName: util.emptify(data.nickName),
         isMale: data.gender == 1,
         isFemale: data.gender == 2,
         unknownGender: data.gender == 0,
-        motto: data.motto,
-        collegeIndex: data.collegeIndex,
-        gradeIndex: data.gradeIndex,
-        dormitory: data.dormitory,
-        studentID: data.studentID,
-        realName: data.realName,
-        phone: data.phone,
-        email: data.email
+        motto: util.emptify(data.motto),
+        collegeIndex: util.zeroify(data.collegeIndex),
+        gradeIndex: util.zeroify(data.gradeIndex),
+        dormitory: util.emptify(data.dormitory),
+        studentID: util.emptify(data.studentID),
+        realName: util.emptify(data.realName),
+        phone: util.emptify(data.phone),
+        email: util.emptify(data.email)
       });
     });
   },
@@ -68,7 +68,7 @@ Page({
         throw "手机号格式不正确";
       if (this.data.email != "" && !/^[\w-]+@[\w-]+(\.[\w-]+)+$/.test(this.data.email))
         throw "邮箱格式不正确";
-      await util.post("/user", {
+      const data = {
         sessionID: await util.login(),
         avatarUrl: this.data.avatarUrl,
         nickName: this.data.nickName,
@@ -81,7 +81,9 @@ Page({
         realName: this.data.realName,
         phone: this.data.phone,
         email: this.data.email,
-      });
+      };
+      util.deleteNull(data);
+      await util.post("/user", data);
       this.setData({
         toptips_msg: "用户信息更新成功",
         toptips_type: "success",
@@ -89,4 +91,4 @@ Page({
       });
     });
   }
-})
+});

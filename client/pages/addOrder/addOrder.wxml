@@ -1,0 +1,164 @@
+<mp-toptips msg="{{toptips_msg}}" type="{{toptips_type}}" show="{{toptips_show}}"></mp-toptips>
+
+<mp-form>
+    <mp-cells title="选择模板">
+        <mp-cell>
+            <swiper display-multiple-items="4" next-margin="60rpx" snap-to-edge="true">
+                <swiper-item wx:for="{{templateList}}" wx:key="idx" bindtap="chooseTemplate" data-id="{{item.id}}">
+                    <view class="swiper">
+                        <mp-icon icon="{{item.icon}}" size="{{100 * rpx}}"></mp-icon>
+                        <view class="template-title">{{item.title}}</view>
+                    </view>
+                    <mp-icon wx:if="{{item.userDefine}}" class="delete-icon" icon="close2" size="{{32 * rpx}}"
+                        catchtap="deleteTemplate" data-id="{{item.id}}" type="field" color="#FA5151"></mp-icon>
+                </swiper-item>
+            </swiper>
+        </mp-cell>
+    </mp-cells>
+
+    <mp-cells title="需求基本信息">
+        <mp-cell title="类别" link="true">
+            <picker model:value="{{typeIndex}}" range="{{types}}">
+                <view>{{types[typeIndex]}}</view>
+            </picker>
+        </mp-cell>
+        <mp-cell title="标题">
+            <input placeholder="请输入标题" model:value="{{title}}" maxlength="20" confirm-type="next" />
+        </mp-cell>
+        <mp-cell title="金额" footer="元">
+            <input placeholder="请输入金额" model:value="{{reward}}" type="digit" maxlength="12" confirm-type="next" />
+        </mp-cell>
+        <mp-cell title="截止期限">
+            <view class="ddl-view">
+                <picker class="ddl-date-picker" mode="date" model:value="{{ddlDate}}" start="{{today}}"
+                    bindchange="addDdl">
+                    <view>{{haveDdl ? ddlDate : "无期限"}}</view>
+                </picker>
+                <picker mode="time" model:value="{{ddlTime}}">
+                    <view>{{haveDdl ? ddlTime : ""}}</view>
+                </picker>
+            </view>
+            <mp-icon slot="footer" icon="close2" size="{{48 * rpx}}" color="rgba(0, 0, 0, 0.4)" bindtap="removeDdl">
+            </mp-icon>
+        </mp-cell>
+    </mp-cells>
+
+    <mp-cells title="公开的需求详细信息">
+        <mp-cell wx:if="{{typeIndex == 0}}">
+            <view class="hint-view">
+                <view class="hint-text">选择类别后展示</view>
+            </view>
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 1}}" title="取件地址">
+            <input placeholder="请输入取件地址" model:value="{{fromAddr}}" maxlength="50" confirm-type="next" />
+        </mp-cell>
+        <mp-cell wx:if="{{typeIndex == 1}}" title="送货地址">
+            <input placeholder="请输入送货地址" model:value="{{toAddr}}" maxlength="50" confirm-type="next" />
+        </mp-cell>
+        <mp-cell wx:if="{{typeIndex == 1}}" title="自提柜">
+            <radio-group>
+                <radio model:checked="{{isSelf}}">是</radio>
+                <radio model:checked="{{isNotSelf}}">否</radio>
+            </radio-group>
+        </mp-cell>
+        <mp-cell wx:if="{{typeIndex == 1}}" title="快递尺寸" link="true">
+            <picker model:value="{{sizeIndex}}" range="{{sizeTypes}}">
+                <view>{{sizeTypes[sizeIndex]}}</view>
+            </picker>
+        </mp-cell>
+        <mp-cell wx:if="{{typeIndex == 1}}" title="快递重量" link="true">
+            <picker model:value="{{weightIndex}}" range="{{weightTypes}}">
+                <view>{{weightTypes[weightIndex]}}</view>
+            </picker>
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 2}}" title="问题类别" link="true">
+            <picker model:value="{{questionTypeIndex}}" range="{{questionTypes}}">
+                <view>{{questionTypes[questionTypeIndex]}}</view>
+            </picker>
+        </mp-cell>
+        <mp-cell wx:if="{{typeIndex == 2}}" title="问题简述">
+            <input placeholder="请简要描述问题" model:value="{{questionSimpleDesc}}" maxlength="50" confirm-type="next" />
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 3}}" title="物品简述">
+            <input placeholder="请输入物品" model:value="{{borrowSimpleDesc}}" maxlength="50" confirm-type="next" />
+        </mp-cell>
+        <mp-cell wx:if="{{typeIndex == 3}}" title="租借时长">
+            <input placeholder="请输入租借时长" model:value="{{duration}}" type="number" maxlength="9" confirm-type="next" />
+            <picker slot="footer" model:value="{{unitIndex}}" range="{{timeUnits}}">
+                <view>{{timeUnits[unitIndex]}}</view>
+            </picker>
+        </mp-cell>
+        <mp-cell wx:if="{{typeIndex == 3}}" title="归还时间">
+            <view class="ddl-view">
+                <picker class="ddl-date-picker" mode="date" model:value="{{returnDate}}" start="{{today}}"
+                    bindchange="addReturnDate">
+                    <view>{{haveReturnTime ? returnDate : "未设置"}}</view>
+                </picker>
+                <picker mode="time" model:value="{{returnTime}}">
+                    <view>{{haveReturnTime ? returnTime : ""}}</view>
+                </picker>
+            </view>
+            <mp-icon slot="footer" icon="close2" size="{{48 * rpx}}" color="rgba(0, 0, 0, 0.4)"
+                bindtap="removeReturnDate">
+            </mp-icon>
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 4}}" title="物品简述">
+            <input placeholder="请输入物品" model:value="{{buySimpleDesc}}" maxlength="50" confirm-type="next" />
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 5}}" title="困难简述">
+            <input placeholder="请输入困难" model:value="{{serviceSimpleDesc}}" maxlength="50" confirm-type="next" />
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 6}}" title="需求简述">
+            <input placeholder="请输入需求" model:value="{{otherSimpleDesc}}" maxlength="50" confirm-type="next" />
+        </mp-cell>
+    </mp-cells>
+
+    <mp-cells title="仅接单后可见的需求详细信息">
+        <mp-cell wx:if="{{typeIndex == 0}}">
+            <view class="hint-view">
+                <view class="hint-text">选择类别后展示</view>
+            </view>
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 1}}" title="取件码">
+            <input placeholder="取件码" model:value="{{expressCode}}" maxlength="20" confirm-type="done" />
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 2}}" title="问题详述">
+            <textarea placeholder="请详细描述问题" model:value="{{questionDetailedDesc}}" maxlength="65536"
+                confirm-type="done"></textarea>
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 3}}" title="物品详述">
+            <textarea placeholder="请详细描述要租借的物品" model:value="{{borrowDetailedDesc}}" maxlength="65536"
+                confirm-type="done"></textarea>
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 4}}" title="物品详述">
+            <textarea placeholder="请详细描述要收购的物品" model:value="{{buyDetailedDesc}}" maxlength="65536"
+                confirm-type="done"></textarea>
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 5}}" title="困难详述">
+            <textarea placeholder="请详细描述遇到的困难" model:value="{{serviceDetailedDesc}}" maxlength="65536"
+                confirm-type="done"></textarea>
+        </mp-cell>
+
+        <mp-cell wx:if="{{typeIndex == 6}}" title="需求详述">
+            <textarea placeholder="请详细描述需求内容" model:value="{{otherDetailedDesc}}" maxlength="65536"
+                confirm-type="done"></textarea>
+        </mp-cell>
+    </mp-cells>
+
+</mp-form>
+
+<view id="submit-view">
+    <button class="submit-btn" type="default" bindtap="saveAsTemplate">存为模版</button>
+    <button class="submit-btn" type="primary" bindtap="submit">发布</button>
+</view>

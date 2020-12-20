@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "发起需求",
+  "usingComponents": {
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "mp-form": "/miniprogram_npm/weui-miniprogram/form/form",
+    "mp-cells": "/miniprogram_npm/weui-miniprogram/cells/cells",
+    "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell",
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"
+  }
+}

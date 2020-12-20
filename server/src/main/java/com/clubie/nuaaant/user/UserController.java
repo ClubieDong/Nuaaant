@@ -1,6 +1,5 @@
 package com.clubie.nuaaant.user;
 
-import com.clubie.nuaaant.utils.NuaaAntException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

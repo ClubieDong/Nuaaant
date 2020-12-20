@@ -21,8 +21,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    private void Nullify(User user)
-    {
+    private void Nullify(User user) {
         if (user.getAvatarUrl().isEmpty())
             user.setAvatarUrl(null);
         if (user.getNickName().isEmpty())
@@ -40,9 +39,8 @@ public class UserServiceImpl implements UserService {
         if (user.getEmail().isEmpty())
             user.setEmail(null);
     }
-    
-    private void Emptify(User user)
-    {
+
+    private void Emptify(User user) {
         if (user.getAvatarUrl() == null)
             user.setAvatarUrl("");
         if (user.getNickName() == null)
@@ -97,6 +95,14 @@ public class UserServiceImpl implements UserService {
     public void SetUserInfo(String sessionID, User user) {
         Nullify(user);
         userMapper.UpdateUserBySessionID(sessionID, user);
+    }
+
+    @Override
+    public int GetUserIDBySessionID(String sessionID) {
+        var userID = userMapper.GetUserIDBySessionID(sessionID);
+        if (userID == null)
+            throw new NuaaAntException("找不到用户！");
+        return userID;
     }
 
 }

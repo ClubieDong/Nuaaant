@@ -10,8 +10,7 @@
 
     <mp-cells title="基础信息（点击上方{{avatarUrl == '' ? '图标自动' : '头像重新'}}获取）">
         <mp-cell title="昵称">
-            <input class="weui-input" placeholder="请输入昵称" model:value="{{nickName}}" maxlength="20"
-                confirm-type="next" />
+            <input placeholder="请输入昵称" model:value="{{nickName}}" maxlength="20" confirm-type="next" />
         </mp-cell>
         <mp-cell title="性别">
             <radio-group>
@@ -24,7 +23,7 @@
 
     <mp-cells title="个人简介">
         <mp-cell>
-            <textarea class="weui-textarea" placeholder="请输入个人简介" model:value="{{motto}}" maxlength="65536"></textarea>
+            <textarea placeholder="请输入个人简介" model:value="{{motto}}" maxlength="65536" confirm-type="next"></textarea>
         </mp-cell>
     </mp-cells>
 
@@ -40,30 +39,26 @@
             </picker>
         </mp-cell>
         <mp-cell title="宿舍">
-            <input class="weui-input" placeholder="请输入宿舍" model:value="{{dormitory}}" maxlength="50"
-                confirm-type="next" />
+            <input placeholder="请输入宿舍" model:value="{{dormitory}}" maxlength="50" confirm-type="next" />
         </mp-cell>
     </mp-cells>
 
     <mp-cells title="认证信息">
         <mp-cell title="学号">
-            <input class="weui-input" placeholder="请输入学号" model:value="{{studentID}}" type="number" maxlength="9"
-                confirm-type="next" />
+            <input placeholder="请输入学号" model:value="{{studentID}}" type="number" maxlength="9" confirm-type="next" />
         </mp-cell>
         <mp-cell title="真实姓名">
-            <input class="weui-input" placeholder="请输入真实姓名" model:value="{{realName}}" maxlength="20"
-                confirm-type="next" />
+            <input placeholder="请输入真实姓名" model:value="{{realName}}" maxlength="20" confirm-type="next" />
         </mp-cell>
         <mp-cell title="手机号">
-            <input class="weui-input" placeholder="请输入手机号" model:value="{{phone}}" type="number" maxlength="11"
-                confirm-type="next" />
+            <input placeholder="请输入手机号" model:value="{{phone}}" type="number" maxlength="11" confirm-type="next" />
         </mp-cell>
         <mp-cell title="邮箱">
-            <input class="weui-input" placeholder="请输入邮箱" model:value="{{email}}" maxlength="50" />
+            <input placeholder="请输入邮箱" model:value="{{email}}" maxlength="50" confirm-type="done" />
         </mp-cell>
     </mp-cells>
 </mp-form>
 
-<view class="weui-btn-area">
-    <button class="weui-btn" type="primary" bindtap="submit">确定</button>
+<view id="submit-view">
+    <button type="primary" bindtap="submit">确定</button>
 </view>

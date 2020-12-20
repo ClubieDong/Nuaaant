@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/addOrder/addOrder",
     "pages/editUserInfo/editUserInfo",
     "pages/index/index"
   ],

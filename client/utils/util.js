@@ -31,11 +31,23 @@ export const get = async (subUrl, data) => {
     throw response.data;
   return response.data;
 };
-
 export const post = async (subUrl, data) => {
   const response = await wxp.request({
     url: url + subUrl,
     method: "POST",
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+  });
+  if (response.statusCode != 200)
+    throw response.data;
+  return response.data;
+};
+export const del = async (subUrl, data) => {
+  const response = await wxp.request({
+    url: url + subUrl,
+    method: "DELETE",
     header: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
@@ -64,3 +76,15 @@ export const login = async () => {
   }
   return data.data;
 };
+
+export const date2str = d => d.toLocaleDateString().replace("/", "-").replace("/", "-");
+export const time2str = d => d.toTimeString().substr(0, 5);
+
+export const emptify = d => d == null ? "" : d;
+export const zeroify = d => d == null ? 0 : d;
+
+export const deleteNull = x => {
+  for (const key in x)
+    if (x[key] == null || x[key] === "")
+      delete x[key];
+}

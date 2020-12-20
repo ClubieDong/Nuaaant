@@ -22,3 +22,7 @@ radio {
 textarea {
   height: 150rpx;
 }
+
+#submit-view {
+  margin: 50rpx;
+}

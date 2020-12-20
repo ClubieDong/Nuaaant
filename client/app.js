@@ -34,6 +34,59 @@ App({
     "2016级",
     "2015级"
   ],
+  orderTypes: [
+    "未指定",
+    "代取快递",
+    "询问问题",
+    "租借物品",
+    "收购物品",
+    "请求帮忙",
+    "其他类别"
+  ],
+  expressSizeTypes: [
+    "未指定",
+    "超小件(<10³cm³)",
+    "小件(10³cm³~20³cm³)",
+    "中件(20³cm³~40³cm³)",
+    "大件(40³cm³~80³cm³)",
+    "超大件(>80³cm³)"
+  ],
+  expressWeightTypes: [
+    "未指定",
+    "超轻件(<1kg)",
+    "轻件(1kg~2kg)",
+    "中件(2kg~4kg)",
+    "重件(4kg~8kg)",
+    "超重件(>8kg)"
+  ],
+  questionTypes: [
+    "未指定",
+    "专业类",
+    "学习类",
+    "服装类",
+    "美食类",
+    "校园类",
+    "出行类",
+    "社团类"
+  ],
+  timeUnits: [
+    "单位",
+    "分钟",
+    "小时",
+    "天",
+    "星期",
+    "月",
+    "年"
+  ],
+  orderTypeIcons: [
+    "add2",
+    "shop",
+    "info",
+    "transfer2",
+    "download",
+    "sticker",
+    "more2"
+  ],
 
   onLaunch: function () {
     promisifyAll(wx, this.wxp);

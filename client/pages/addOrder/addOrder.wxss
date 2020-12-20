@@ -1,0 +1,59 @@
+swiper {
+  height: 140rpx;
+}
+
+swiper-item {
+  position: relative;
+}
+
+.delete-icon {
+  position: absolute;
+  top: -15rpx;
+  right: 10rpx;
+}
+
+.swiper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.template-title {
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.ddl-view {
+  display: flex;
+  align-items: center;
+}
+
+.ddl-date-picker {
+  margin-right: 20rpx;
+}
+
+.hint-view {
+  display: flex;
+  justify-content: center;
+}
+
+.hint-text {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+radio {
+  margin-right: 32rpx;
+}
+
+textarea {
+  height: 150rpx;
+  width: 100%;
+}
+
+#submit-view {
+  margin: 50rpx;
+}
+
+.submit-btn {
+  margin: 16rpx;
+}
