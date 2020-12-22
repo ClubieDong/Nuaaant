@@ -71,7 +71,7 @@ Page({
       templateList.push({
         idx: i,
         id: data[i].ID,
-        icon: this.data.orderTypeIcons[data[i].TypeIndex],
+        typeIndex: data[i].TypeIndex,
         userDefine: data[i].UserDefine == 1,
         title: data[i].Title
       });

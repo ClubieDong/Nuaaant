@@ -6,7 +6,7 @@
             <swiper display-multiple-items="4" next-margin="60rpx" snap-to-edge="true">
                 <swiper-item wx:for="{{templateList}}" wx:key="idx" bindtap="chooseTemplate" data-id="{{item.id}}">
                     <view class="swiper">
-                        <mp-icon icon="{{item.icon}}" size="{{100 * rpx}}"></mp-icon>
+                        <mp-icon icon="{{orderTypeIcons[item.typeIndex]}}" size="{{100 * rpx}}"></mp-icon>
                         <view class="template-title">{{item.title}}</view>
                     </view>
                     <mp-icon wx:if="{{item.userDefine}}" class="delete-icon" icon="close2" size="{{32 * rpx}}"

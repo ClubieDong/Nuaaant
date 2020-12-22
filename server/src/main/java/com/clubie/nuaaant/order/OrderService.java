@@ -15,4 +15,6 @@ public interface OrderService {
     void DeleteTemplateByID(String sessionID, int id);
 
     void AddOrder(String sessionID, Order order);
+
+    List<Map<String, Object>> GetOrderList(String sessionID, String searchText, int typeIndex, int sortIndex, int filterID);
 }

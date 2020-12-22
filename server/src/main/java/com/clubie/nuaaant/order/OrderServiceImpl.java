@@ -61,4 +61,20 @@ public class OrderServiceImpl implements OrderService {
         order.setGiverID(userID);
         orderMapper.AddOrder(order);
     }
+
+    // TypeIndex
+    // Deadline
+    // Title
+    // Reward
+    // AvatarUrl - join
+    // GiverName - join
+    // GiverScore - join
+    // TakerCount - count
+    // LikeCount
+    // RemarkCount
+
+    @Override
+    public List<Map<String, Object>> GetOrderList(String sessionID, String searchText, int typeIndex, int sortIndex, int filterID) {
+        return orderMapper.GetOrderList();
+    }
 }

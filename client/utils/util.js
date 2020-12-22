@@ -88,3 +88,24 @@ export const deleteNull = x => {
     if (x[key] == null || x[key] === "")
       delete x[key];
 }
+
+export const formatTime = t => {
+  let delta = t - new Date();
+  const future = delta > 0;
+  delta = Math.floor(Math.abs(delta) / 1000);
+  const tooLong = delta > 60 * 60 * 24 * 7;
+  let s;
+  if (delta < 60)
+    s = Math.floor(delta) + "秒";
+  else if (delta < 60 * 60)
+    s = Math.floor(delta / 60) + "分钟";
+  else if (delta < 60 * 60 * 24)
+    s = Math.floor(delta / 60 / 60) + "小时";
+  else if (delta < 60 * 60 * 24 * 7)
+    s = Math.floor(delta / 60 / 60 / 24) + "天"; 
+  if (tooLong)
+    return t.toLocaleDateString();
+  if (future)
+    return "还剩" + s;
+  return s + "之前";
+}

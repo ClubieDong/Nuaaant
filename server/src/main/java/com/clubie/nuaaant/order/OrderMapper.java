@@ -43,4 +43,11 @@ public interface OrderMapper {
 
     @Delete("DELETE FROM Orders WHERE ID = #{id}")
     void DeleteOrderByID(int id);
+
+    @Select("SELECT o.ID, TypeIndex, Deadline, Title, Reward, u.AvatarUrl, u.NickName, " +
+            "       4.5 AS GiverScore, 5 AS TakerCount, 5 AS LikeCount, 5 AS RemarkCount " +
+            "FROM Orders o " +
+            "INNER JOIN Users u ON o.GiverID = u.ID " +
+            "WHERE NOT IsTemplate")
+    List<Map<String, Object>> GetOrderList();
 }

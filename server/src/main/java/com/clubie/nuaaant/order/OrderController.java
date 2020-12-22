@@ -40,4 +40,8 @@ public class OrderController {
         orderService.AddOrder(sessionID, order);
     }
 
+    @GetMapping("/order/list")
+    public List<Map<String, Object>> GetOrderList(String sessionID, String searchText, int typeIndex, int sortIndex, int filterID) {
+        return orderService.GetOrderList(sessionID, searchText, typeIndex, sortIndex, filterID);
+    }
 }

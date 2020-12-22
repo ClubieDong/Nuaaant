@@ -1,0 +1,57 @@
+<mp-toptips msg="{{toptips_msg}}" type="{{toptips_type}}" show="{{toptips_show}}"></mp-toptips>
+
+<view class="shadow">
+  <view id="search-view">
+    <mp-icon icon="search" size="{{50 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+    <input id="search-input" placeholder="搜索" model:value="{{searchText}}" maxlength="50" confirm-type="search" />
+  </view>
+
+  <view id="filter-view">
+    <picker class="filter-picker" style="background-color:{{typeIndex == 0 ? '#1485EE11' : '#FFC30033'}}"
+      model:value="{{typeIndex}}" range="{{orderTypes}}">
+      <text class="filter-text">{{typeIndex == 0 ? "类别" : orderTypes[typeIndex]}}</text>
+      <mp-icon class="filter-icon" icon="arrow" size="{{18 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+    </picker>
+    <picker class="filter-picker" style="background-color:{{sortIndex == 0 ? '#1485EE11' : '#FFC30033'}}"
+      model:value="{{sortIndex}}" range="{{sortTypes}}">
+      <text>{{sortIndex == 0 ? "排序" : sortTypes[sortIndex]}}</text>
+      <mp-icon class="filter-icon" icon="arrow" size="{{18 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+    </picker>
+    <picker class="filter-picker" style="background-color:{{filterIndex == 0 ? '#1485EE11' : '#FFC30033'}}"
+      model:value="{{filterIndex}}" range="{{filters}}">
+      <view style="display:inline-block">
+        <text>{{filterIndex == 0 ? "高级筛选" : filters[filterIndex]}}</text>
+      </view>
+      <mp-icon class="filter-icon" icon="arrow" size="{{18 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+    </picker>
+  </view>
+</view>
+
+<scroll-view scroll-y="true">
+  <view class="order-view shadow" wx:for="{{orders}}">
+    <view class="order-view-1">
+      <view class="order-type">
+        <mp-icon icon="{{orderTypeIcons[item.typeIndex]}}" size="{{40 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+        <view>类别：{{orderTypes[item.typeIndex]}}</view>
+      </view>
+      <view>{{item.timeLeft}}</view>
+    </view>
+    <view class="order-view-2">
+      <view>{{item.title}}</view>
+      <view class="order-reward">￥{{item.reward}}</view>
+    </view>
+    <view class="order-view-3">
+      <image class="order-avatar" src="{{item.avatarUrl}}"></image>
+      <view>{{item.giverName}}</view>
+      <mp-icon class="order-score-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD"></mp-icon>
+      <view class="order-score">{{item.giverScore}}</view>
+    </view>
+    <view class="order-view-4">
+      <view>{{item.takerCount == 0 ? "等待接单中" : item.takerCount + "人愿意接单"}}</view>
+      <view class="order-like-remark">
+        <view class="order-like">{{item.likeCount}} 关注</view>
+        <view>{{item.remarkCount}} 评论</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
