@@ -1,0 +1,319 @@
+<mp-toptips msg="{{toptips_msg}}" type="{{toptips_type}}" show="{{toptips_show}}"></mp-toptips>
+
+<view id="state" class="inline-view">
+  <view class="state-single">
+    <view class="inline-view">
+      <view class="state-bar transparent"></view>
+      <view class="state-circle {{state > 0 ? 'state-finished' : 'state-unfinished'}}"></view>
+      <view class="state-bar {{state > 0 ? 'state-finished' : 'state-unfinished'}}"></view>
+    </view>
+    <view class="state-text">等待接单</view>
+  </view>
+  <view class="state-single">
+    <view class="inline-view">
+      <view class="state-bar {{state > 1 ? 'state-finished' : 'state-unfinished'}}"></view>
+      <view class="state-circle {{state > 1 ? 'state-finished' : 'state-unfinished'}}"></view>
+      <view class="state-bar {{state > 1 ? 'state-finished' : 'state-unfinished'}}"></view>
+    </view>
+    <view class="state-text">已接单</view>
+  </view>
+  <view class="state-single">
+    <view class="inline-view">
+      <view class="state-bar {{state > 2 ? 'state-finished' : 'state-unfinished'}}"></view>
+      <view class="state-circle {{state > 2 ? 'state-finished' : 'state-unfinished'}}"></view>
+      <view class="state-bar {{state > 2 ? 'state-finished' : 'state-unfinished'}}"></view>
+    </view>
+    <view class="state-text">待确认</view>
+  </view>
+  <view class="state-single">
+    <view class="inline-view">
+      <view class="state-bar {{state > 3 ? 'state-finished' : 'state-unfinished'}}"></view>
+      <view class="state-circle {{state > 3 ? 'state-finished' : 'state-unfinished'}}"></view>
+      <view class="state-bar transparent"></view>
+    </view>
+    <view class="state-text">已完成</view>
+  </view>
+</view>
+
+<view id="basic">
+  <view id="basic-1" class="inline-view">
+    <view class="inline-view">
+      <mp-icon icon="{{typeIcons[typeIndex]}}" size="{{50 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+      <view>类别：{{types[typeIndex]}}</view>
+    </view>
+    <view class="basic-button-text" wx:if="{{userType < 2}}">申诉</view>
+    <view class="basic-button-text" wx:if="{{userType >= 2}}">举报</view>
+  </view>
+  <view id="basic-2" class="inline-view">
+    <view>{{title}}</view>
+    <view id="basic-reward">￥{{reward}}</view>
+  </view>
+  <view class="basic-text">截止期限：{{deadline}}</view>
+</view>
+
+<view id="op-view" class="inline-view">
+  <view class="op-button" wx:if="{{userType == 0 && state == 0}}">
+    <mp-icon icon="pencil" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">修改</view>
+  </view>
+  <view class="op-button" wx:if="{{userType == 0 && state == 0}}">
+    <mp-icon icon="done2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">重新发布</view>
+  </view>
+
+  <view class="op-button" wx:if="{{userType == 0 && state == 1}}" bindtap="gotoChooseTaker">
+    <mp-icon icon="group-detail" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">选择接单者</view>
+  </view>
+  <view class="op-button" wx:if="{{userType == 0 && state == 1}}">
+    <mp-icon icon="previous" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">撤回</view>
+  </view>
+
+  <view class="op-button" wx:if="{{userType == 2 && state == 1}}" bindtap="cancelApply">
+    <mp-icon icon="sticker" type="field" size="{{70 * rpx}}" color="#07C160EE"></mp-icon>
+    <view class="op-text">取消申请</view>
+  </view>
+
+  <view class="op-button" wx:if="{{userType == 3 && state == 1}}" bindtap="apply">
+    <mp-icon icon="sticker" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">申请接单</view>
+  </view>
+
+  <view class="op-button" wx:if="{{userType == 0 && state == 2}}">
+    <mp-icon icon="group-detail" type="field" size="{{70 * rpx}}" color="#07C160EE"></mp-icon>
+    <view class="op-text">取消接单者</view>
+  </view>
+
+  <view class="op-button" wx:if="{{userType == 1 && state == 2}}">
+    <mp-icon icon="done2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">提交结果</view>
+  </view>
+  <view class="op-button" wx:if="{{userType == 1 && state == 2}}">
+    <mp-icon icon="close2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">放弃接单</view>
+  </view>
+
+  <view class="op-button" wx:if="{{userType == 0 && state == 3}}">
+    <mp-icon icon="done2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">确认</view>
+  </view>
+  <view class="op-button" wx:if="{{userType == 0 && state == 3}}">
+    <mp-icon icon="close2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">驳回</view>
+  </view>
+
+  <view class="op-button" wx:if="{{userType == 1 && state == 3}}">
+    <mp-icon icon="previous" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">撤回提交</view>
+  </view>
+
+  <view class="op-button" wx:if="{{!like}}" bindtap="like">
+    <mp-icon icon="like" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">关注({{likeCount}})</view>
+  </view>
+  <view class="op-button" wx:if="{{like}}" bindtap="cancelLike">
+    <mp-icon icon="like" type="field" size="{{70 * rpx}}" color="#F288C8EE"></mp-icon>
+    <view class="op-text">取消关注({{likeCount}})</view>
+  </view>
+
+  <view class="op-button">
+    <mp-icon icon="comment" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">评论({{remarkCount}})</view>
+  </view>
+</view>
+
+<view id="tabbar" class="inline-view">
+  <view class="tab-view {{tabbarCurrent == 0 ? 'chosen-tab' : ''}}" bindtap="selectTab" data-tab="0">详情</view>
+  <view class="tab-view {{tabbarCurrent == 1 ? 'chosen-tab' : ''}}" bindtap="selectTab" data-tab="1">用户</view>
+  <view class="tab-view {{tabbarCurrent == 2 ? 'chosen-tab' : ''}}" bindtap="selectTab" data-tab="2">评论</view>
+  <view id="tab-cover" style="left:{{tabbarCoverBase + tabbarCoverDelta}}rpx;"></view>
+</view>
+
+<swiper model:current="{{tabbarCurrent}}" bindtransition="tabbarTransition" bindanimationfinish="tabbarTransitionEnd">
+  <swiper-item>
+    <scroll-view scroll-y="true">
+      <view class="group-title">公开的需求详细信息</view>
+      <view class="cells" wx:if="{{typeIndex == 1}}">
+        <view class="cell inline-view">
+          <view class="info-title">取件地址</view>
+          <view>{{fromAddr}}</view>
+        </view>
+        <view class="cell inline-view">
+          <view class="info-title">送货地址</view>
+          <view>{{toAddr}}</view>
+        </view>
+        <view class="cell inline-view">
+          <view class="info-title">自提柜</view>
+          <view>{{isSelf ? "是" : "否"}}</view>
+        </view>
+        <view class="cell inline-view">
+          <view class="info-title">快递尺寸</view>
+          <view>{{sizeTypes[sizeIndex]}}</view>
+        </view>
+        <view class="cell cell-last inline-view">
+          <view class="info-title">快递重量</view>
+          <view>{{weightTypes[weightIndex]}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 2}}">
+        <view class="cell inline-view">
+          <view class="info-title">问题类别</view>
+          <view>{{questionTypes[questionTypeIndex]}}</view>
+        </view>
+        <view class="cell cell-last inline-view">
+          <view class="info-title">问题简述</view>
+          <view>{{simpleDesc}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 3}}">
+        <view class="cell inline-view">
+          <view class="info-title">物品简述</view>
+          <view>{{simpleDesc}}</view>
+        </view>
+        <view class="cell inline-view">
+          <view class="info-title">租借时长</view>
+          <view>{{duration}}{{timeUnits[unitIndex]}}</view>
+        </view>
+        <view class="cell cell-last inline-view">
+          <view class="info-title">归还时间</view>
+          <view>{{returnTime}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 4}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">物品简述</view>
+          <view>{{simpleDesc}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 5}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">困难简述</view>
+          <view>{{simpleDesc}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 6}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">需求简述</view>
+          <view>{{simpleDesc}}</view>
+        </view>
+      </view>
+
+      <view class="group-title" wx:if="userType < 2">仅接单后可见的需求详细信息</view>
+      <view class="cells" wx:if="{{typeIndex == 1}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">取件码</view>
+          <view>{{expressCode}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 2}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">问题详述</view>
+          <view>{{detailedDesc}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 3}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">物品详述</view>
+          <view>{{detailedDesc}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 4}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">物品详述</view>
+          <view>{{detailedDesc}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 5}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">困难详述</view>
+          <view>{{detailedDesc}}</view>
+        </view>
+      </view>
+      <view class="cells" wx:if="{{typeIndex == 6}}">
+        <view class="cell cell-last inline-view">
+          <view class="info-title">需求详述</view>
+          <view>{{detailedDesc}}</view>
+        </view>
+      </view>
+
+      <view class="group-title">时间节点</view>
+      <view class="cells">
+        <view class="cell inline-view">
+          <view class="info-title">发布时间</view>
+          <view>{{publishTime}}</view>
+        </view>
+        <view class="cell inline-view">
+          <view class="info-title">接单时间</view>
+          <view>{{acceptTime}}</view>
+        </view>
+        <view class="cell inline-view">
+          <view class="info-title">提交时间</view>
+          <view>{{submitTime}}</view>
+        </view>
+        <view class="cell cell-last inline-view">
+          <view class="info-title">完成时间</view>
+          <view>{{completeTime}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view scroll-y="true" scroll-into-view="{{userScrollIntoView}}">
+      <view class="group-title">发布者</view>
+      <view class="cells">
+        <view class="cell cell-last inline-view polar-flex-view">
+          <view class="inline-view">
+            <image class="user-avatar" src="{{giverAvatarUrl}}"></image>
+            <view>{{giverName}}</view>
+            <mp-icon class="user-score-icon align-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD">
+            </mp-icon>
+            <view class="user-score">{{giverScore}}</view>
+          </view>
+          <mp-icon wx:if="{{userID != giverID}}" class="align-icon" icon="contacts" size="{{50 * rpx}}"></mp-icon>
+        </view>
+      </view>
+
+      <view class="group-title">接单者</view>
+      <view class="cells">
+        <view wx:if="{{state < 2}}" class="cell cell-last inline-view center-flex-view">虚位以待</view>
+        <view wx:else class="cell cell-last inline-view polar-flex-view">
+          <view class="inline-view">
+            <image class="user-avatar" src="{{takerAvatarUrl}}"></image>
+            <view>{{takerName}}</view>
+            <mp-icon class="user-score-icon align-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD">
+            </mp-icon>
+            <view class="user-score">{{takerScore}}</view>
+          </view>
+          <mp-icon wx:if="{{userID != takerID}}" class="align-icon" icon="contacts" size="{{50 * rpx}}"></mp-icon>
+        </view>
+      </view>
+
+      <view id="applier-list" class="group-title">申请者</view>
+      <view class="cells">
+        <view wx:if="{{appliers.length == 0}}" class="cell cell-last inline-view center-flex-view">暂无申请者</view>
+        <view wx:else>
+          <view wx:for="{{appliers}}" wx:key="id"
+            class="cell inline-view polar-flex-view {{index == appliers.length - 1 ? 'cell-last' : ''}}">
+            <view class="inline-view">
+              <image class="user-avatar" src="{{item.avatarUrl}}"></image>
+              <view>{{item.name}}</view>
+              <mp-icon class="user-score-icon align-icon" icon="star" size="{{50 * rpx}}" type="field"
+                color="#ED612DDD">
+              </mp-icon>
+              <view class="user-score">{{item.score}}</view>
+            </view>
+            <view class="inline-view">
+              <mp-icon wx:if="{{userType == 0 && state == 1}}" class="align-icon choose-icon" icon="done2"
+                size="{{50 * rpx}}" bindtap="chooseTaker" data-id="{{item.id}}"></mp-icon>
+              <mp-icon wx:if="{{userID != item.id}}" class="align-icon" icon="contacts" size="{{50 * rpx}}">
+              </mp-icon>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+  </swiper-item>
+</swiper>

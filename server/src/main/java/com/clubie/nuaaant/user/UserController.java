@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class UserController {
 
@@ -12,7 +14,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String Login(String code) {
+    public Map<String, Object> Login(String code) {
         return userService.Login(code);
     }
 

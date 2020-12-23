@@ -28,10 +28,10 @@
 </view>
 
 <scroll-view scroll-y="true">
-  <view class="order-view shadow" wx:for="{{orders}}">
+  <view class="order-view shadow" wx:for="{{orders}}" wx:key="id" data-id="{{item.id}}" bindtap="selectOrder">
     <view class="order-view-1">
       <view class="order-type">
-        <mp-icon icon="{{orderTypeIcons[item.typeIndex]}}" size="{{40 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+        <mp-icon icon="{{orderTypeIcons[item.typeIndex]}}" size="{{50 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
         <view>类别：{{orderTypes[item.typeIndex]}}</view>
       </view>
       <view>{{item.timeLeft}}</view>

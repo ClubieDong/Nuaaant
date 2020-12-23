@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface UserMapper {
 
@@ -44,4 +47,8 @@ public interface UserMapper {
 
     @Select("SELECT ID FROM Users WHERE SessionID = #{sessionID}")
     Integer GetUserIDBySessionID(String sessionID);
+
+    @Select("SELECT AvatarUrl, NickName, 4.5 AS Score " +
+            "FROM Users WHERE ID = #{id}")
+    Map<String, Object> GetBasicInfoByID(int id);
 }

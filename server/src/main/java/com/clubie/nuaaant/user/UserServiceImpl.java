@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String Login(String code) {
+    public Map<String, Object> Login(String code) {
         var response = restTemplate.getForObject(url, String.class, appid, secret, code);
         if (response == null)
             throw new NuaaAntException("微信服务器无响应");
@@ -79,7 +80,10 @@ public class UserServiceImpl implements UserService {
             userMapper.CreateUser(openID, sessionKey, sessionID);
         else
             userMapper.UpdateSession(openID, sessionKey, sessionID);
-        return sessionID;
+        var res = new HashMap<String, Object>();
+        res.put("sessionID", sessionID);
+        res.put("userID", GetUserIDBySessionID(sessionID));
+        return res;
     }
 
     @Override
@@ -105,4 +109,11 @@ public class UserServiceImpl implements UserService {
         return userID;
     }
 
+    @Override
+    public Map<String, Object> GetBasicInfoByID(int id) {
+        var res = userMapper.GetBasicInfoByID(id);
+        if (res == null)
+            throw new NuaaAntException("找不到用户！");
+        return res;
+    }
 }

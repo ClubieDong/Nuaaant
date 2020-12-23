@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "南航小蚂蚁  By Clubie",
+  "usingComponents": {
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon",
+    "mp-form": "/miniprogram_npm/weui-miniprogram/form/form",
+    "mp-cells": "/miniprogram_npm/weui-miniprogram/cells/cells",
+    "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell"
+  }
+}

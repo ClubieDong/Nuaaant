@@ -44,4 +44,29 @@ public class OrderController {
     public List<Map<String, Object>> GetOrderList(String sessionID, String searchText, int typeIndex, int sortIndex, int filterID) {
         return orderService.GetOrderList(sessionID, searchText, typeIndex, sortIndex, filterID);
     }
+
+    @GetMapping("/order")
+    public Map<String, Object> GetOrderByID(String sessionID, int orderID) {
+        return orderService.GetOrderByID(sessionID, orderID);
+    }
+
+    @GetMapping("/order/apply")
+    public void Apply(String sessionID, int orderID) {
+        orderService.Apply(sessionID, orderID);
+    }
+
+    @GetMapping("/order/apply/cancel")
+    public void CancelApply(String sessionID, int orderID) {
+        orderService.CancelApply(sessionID, orderID);
+    }
+
+    @GetMapping("/order/like")
+    public void Like(String sessionID, int orderID) {
+        orderService.Like(sessionID, orderID);
+    }
+
+    @GetMapping("/order/like/cancel")
+    public void CancelLike(String sessionID, int orderID) {
+        orderService.CancelLike(sessionID, orderID);
+    }
 }

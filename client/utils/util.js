@@ -58,7 +58,17 @@ export const del = async (subUrl, data) => {
   return response.data;
 };
 
+const sudo = i => {
+  wx.setStorageSync("Sudo", i);
+  wx.setStorageSync("UserID", i);
+}
+
 export const login = async () => {
+  let [errSudo, dataSudo] = await to(wxp.getStorage({
+    key: "Sudo"
+  }));
+  if (errSudo == null)
+    return dataSudo.data;
   let [err1] = await to(wxp.checkSession());
   let [err2, data] = await to(wxp.getStorage({
     key: "SessionID"
@@ -70,11 +80,26 @@ export const login = async () => {
     });
     await wxp.setStorage({
       key: "SessionID",
-      data: data
+      data: data.sessionID,
     });
-    return data;
+    await wxp.setStorage({
+      key: "UserID",
+      data: data.userID,
+    });
+    return data.sessionID;
   }
   return data.data;
+};
+
+export const getUserID = async () => {
+  while (true) {
+    let [err, data] = await to(wxp.getStorage({
+      key: "UserID"
+    }));
+    if (err == null)
+      return data.data;
+    await login();
+  }
 };
 
 export const date2str = d => d.toLocaleDateString().replace("/", "-").replace("/", "-");
@@ -89,11 +114,17 @@ export const deleteNull = x => {
       delete x[key];
 }
 
-export const formatTime = t => {
+export const formatFutureTime = t => {
+  if (t == null)
+    return "";
+  if (typeof (t) == "string")
+    t = new Date(t);
   let delta = t - new Date();
-  const future = delta > 0;
-  delta = Math.floor(Math.abs(delta) / 1000);
-  const tooLong = delta > 60 * 60 * 24 * 7;
+  if (delta < 0)
+    return "已截止";
+  delta = Math.floor(delta / 1000);
+  if (delta > 60 * 60 * 24 * 7)
+    return t.toLocaleDateString();
   let s;
   if (delta < 60)
     s = Math.floor(delta) + "秒";
@@ -102,10 +133,29 @@ export const formatTime = t => {
   else if (delta < 60 * 60 * 24)
     s = Math.floor(delta / 60 / 60) + "小时";
   else if (delta < 60 * 60 * 24 * 7)
-    s = Math.floor(delta / 60 / 60 / 24) + "天"; 
-  if (tooLong)
+    s = Math.floor(delta / 60 / 60 / 24) + "天";
+  return "还剩" + s;
+}
+
+export const formatPassTime = t => {
+  if (t == null)
+    return "";
+  if (typeof (t) == "string")
+    t = new Date(t);
+  let delta = new Date() - t;
+  if (delta < 0)
+    return "未开始";
+  delta = Math.floor(delta / 1000);
+  if (delta > 60 * 60 * 24 * 7)
     return t.toLocaleDateString();
-  if (future)
-    return "还剩" + s;
+  let s;
+  if (delta < 60)
+    s = Math.floor(delta) + "秒";
+  else if (delta < 60 * 60)
+    s = Math.floor(delta / 60) + "分钟";
+  else if (delta < 60 * 60 * 24)
+    s = Math.floor(delta / 60 / 60) + "小时";
+  else if (delta < 60 * 60 * 24 * 7)
+    s = Math.floor(delta / 60 / 60 / 24) + "天";
   return s + "之前";
 }

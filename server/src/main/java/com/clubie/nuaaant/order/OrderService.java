@@ -17,4 +17,14 @@ public interface OrderService {
     void AddOrder(String sessionID, Order order);
 
     List<Map<String, Object>> GetOrderList(String sessionID, String searchText, int typeIndex, int sortIndex, int filterID);
+
+    Map<String, Object> GetOrderByID(String sessionID, int orderID);
+
+    void Apply(String sessionID, int orderID);
+
+    void CancelApply(String sessionID, int orderID);
+
+    void Like(String sessionID, int orderID);
+
+    void CancelLike(String sessionID, int orderID);
 }

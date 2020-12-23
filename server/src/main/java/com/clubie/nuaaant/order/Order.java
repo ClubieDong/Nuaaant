@@ -32,4 +32,13 @@ public class Order {
     private Date ReturnTime;
     private String SimpleDesc;
     private String DetailedDesc;
+    private Integer State;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date PublishTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date AcceptTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date SubmitTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date CompleteTime;
 }
