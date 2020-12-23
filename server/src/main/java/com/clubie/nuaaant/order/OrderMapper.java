@@ -5,46 +5,30 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
-    @Select("SELECT ID, TypeIndex, Title, GiverID IS NOT NULL As UserDefine " +
-            "FROM Orders " +
-            "WHERE (GiverID = #{id} AND IsTemplate = TRUE) OR GiverID IS NULL " +
-            "ORDER BY UserDefine DESC, ID DESC")
-    List<Map<String, Object>> GetTemplateList(int id);
-
     @Insert("INSERT INTO Orders(" +
-            "    TypeIndex, Title, Reward, Deadline, GiverID, TakerID, IsTemplate, " +
-            "    FromAddr, ToAddr, IsSelf, SizeIndex, WeightIndex, ExpressCode, " +
-            "    QuestionTypeIndex, Duration, UnitIndex, ReturnTime, SimpleDesc, " +
-            "    DetailedDesc, State, PublishTime, AcceptTime, SubmitTime, " +
-            "    CompleteTime " +
+            "    GiverID, IsTemplate, State, PublishTime, TypeIndex, Title, Reward, " +
+            "    Deadline, FromAddr, ToAddr, IsSelf, SizeIndex, WeightIndex, " +
+            "    ExpressCode, QuestionTypeIndex, Duration, UnitIndex, ReturnTime, " +
+            "    SimpleDesc, DetailedDesc " +
             ") VALUES(" +
-            "    #{TypeIndex}, #{Title}, #{Reward}, #{Deadline}, #{GiverID}, " +
-            "    #{TakerID}, #{IsTemplate}, #{FromAddr}, #{ToAddr}, #{IsSelf}, " +
-            "    #{SizeIndex}, #{WeightIndex}, #{ExpressCode}, #{QuestionTypeIndex}, " +
-            "    #{Duration}, #{UnitIndex}, #{ReturnTime}, #{SimpleDesc}, " +
-            "    #{DetailedDesc}, #{State}, #{PublishTime}, #{AcceptTime}, " +
-            "    #{SubmitTime}, #{CompleteTime}" +
+            "    #{userID}, 1, 1, #{publishTime}, #{order.TypeIndex}, #{order.Title}, " +
+            "    #{order.Reward}, #{order.Deadline}, #{order.romAddr}, #{order.ToAddr}, " +
+            "    #{order.IsSelf}, #{order.SizeIndex}, #{order.WeightIndex}, #{order.ExpressCode}, " +
+            "    #{order.QuestionTypeIndex}, #{order.Duration}, #{order.UnitIndex}, " +
+            "    #{order.ReturnTime}, #{order.SimpleDesc}, #{order.DetailedDesc}" +
             ")")
-    void AddOrder(Order order);
+    void AddOrder(int userID, Order order, Date publishTime);
 
-    @Select("SELECT GiverID FROM Orders WHERE ID = #{id}")
-    Integer GetGiverByID(int id);
+    @Select("SELECT GiverID FROM Orders WHERE ID = #{orderID}")
+    Integer GetGiver(int orderID);
 
-    @Select("SELECT ID, TypeIndex, Title, Reward, Deadline, FromAddr, ToAddr, IsSelf, " +
-            "       SizeIndex, WeightIndex, ExpressCode, QuestionTypeIndex, Duration, " +
-            "       UnitIndex, ReturnTime, SimpleDesc, DetailedDesc " +
-            "FROM Orders " +
-            "WHERE ID = #{id} AND IsTemplate")
-    Order GetTemplateByID(int id);
-
-    @Delete("DELETE FROM Orders WHERE ID = #{id} AND IsTemplate")
-    void DeleteTemplateByID(int id);
-
+    // TODO
     @Select("SELECT o.ID, TypeIndex, Deadline, Title, Reward, u.AvatarUrl," +
             "       u.NickName AS GiverName, 4.5 AS GiverScore, 5 AS TakerCount, " +
             "       5 AS LikeCount, 5 AS RemarkCount " +
@@ -58,38 +42,12 @@ public interface OrderMapper {
             "       ReturnTime, SimpleDesc, DetailedDesc, State, PublishTime, AcceptTime, " +
             "       SubmitTime, CompleteTime, GiverID, TakerID " +
             "FROM Orders " +
-            "WHERE ID = #{id}")
-    Map<String, Object> GetOrderByID(int id);
+            "WHERE ID = #{orderID}")
+    Map<String, Object> GetOrder(int orderID);
 
     @Select("SELECT State FROM Orders WHERE ID = #{orderID}")
-    Integer GetOrderState(int orderID);
-
-    @Insert("INSERT INTO Appliers (UserID, OrderID) VALUES (#{userID}, #{orderID})")
-    void Apply(int userID, int orderID);
-
-    @Delete("DELETE FROM Appliers WHERE UserID = #{userID} AND OrderID = #{orderID}")
-    void CancelApply(int userID, int orderID);
-
-    @Insert("INSERT INTO Likes (UserID, OrderID) VALUES (#{userID}, #{orderID})")
-    void Like(int userID, int orderID);
-
-    @Delete("DELETE FROM Likes WHERE UserID = #{userID} AND OrderID = #{orderID}")
-    void CancelLike(int userID, int orderID);
-
-    @Select("SELECT COUNT(*) FROM Likes " +
-            "WHERE UserID = #{userID} AND OrderID = #{orderID} " +
-            "LIMIT 1")
-    int CheckLike(int userID, int orderID);
-
-    @Select("SELECT COUNT(*) FROM Likes WHERE OrderID = #{orderID}")
-    int GetLikeCount(int orderID);
-
-    @Select("SELECT u.ID, u.AvatarUrl, u.NickName, 4.5 AS Score " +
-            "FROM Users u " +
-            "INNER JOIN Appliers a ON a.UserID = u.ID " +
-            "WHERE a.OrderID = #{orderID}")
-    List<Map<String, Object>> GetApplierInfo(int orderID);
+    Integer GetState(int orderID);
 
     @Select("SELECT Count(*) FROM Orders WHERE ID = #{orderID} LIMIT 1")
-    int CheckOrderExist(int orderID);
+    int CheckExist(int orderID);
 }

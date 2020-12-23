@@ -9,7 +9,7 @@ public interface UserService {
 
     void SetUserInfo(String sessionID, User user);
 
-    int GetUserIDBySessionID(String sessionID);
+    int Session2ID(String sessionID);
 
-    Map<String, Object> GetBasicInfoByID(int id);
+    Map<String, Object> GetBasicInfo(int userID);
 }

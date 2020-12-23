@@ -27,7 +27,7 @@ Page({
 
   onLoad: function (r) {
     util.tryCatch(this, async () => {
-      const data = await util.get("/order", {
+      const data = await util.get("/order/detail", {
         sessionID: await util.login(),
         orderID: r.orderID
       });
@@ -116,7 +116,7 @@ Page({
 
   apply: function () {
     util.tryCatch(this, async () => {
-      await util.get("/order/apply", {
+      await util.get("/apply", {
         sessionID: await util.login(),
         orderID: this.data.orderID
       });
@@ -128,7 +128,7 @@ Page({
 
   cancelApply: function () {
     util.tryCatch(this, async () => {
-      await util.get("/order/apply/cancel", {
+      await util.get("/apply/cancel", {
         sessionID: await util.login(),
         orderID: this.data.orderID
       });
@@ -140,7 +140,7 @@ Page({
 
   like: function () {
     util.tryCatch(this, async () => {
-      await util.get("/order/like", {
+      await util.get("/like", {
         sessionID: await util.login(),
         orderID: this.data.orderID
       });
@@ -152,7 +152,7 @@ Page({
 
   cancelLike: function () {
     util.tryCatch(this, async () => {
-      await util.get("/order/like/cancel", {
+      await util.get("/like/cancel", {
         sessionID: await util.login(),
         orderID: this.data.orderID
       });

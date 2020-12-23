@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
             userMapper.UpdateSession(openID, sessionKey, sessionID);
         var res = new HashMap<String, Object>();
         res.put("sessionID", sessionID);
-        res.put("userID", GetUserIDBySessionID(sessionID));
+        res.put("userID", Session2ID(sessionID));
         return res;
     }
 
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int GetUserIDBySessionID(String sessionID) {
+    public int Session2ID(String sessionID) {
         var userID = userMapper.GetUserIDBySessionID(sessionID);
         if (userID == null)
             throw new NuaaAntException("找不到用户！");
@@ -110,8 +110,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> GetBasicInfoByID(int id) {
-        var res = userMapper.GetBasicInfoByID(id);
+    public Map<String, Object> GetBasicInfo(int userID) {
+        var res = userMapper.GetBasicInfo(userID);
         if (res == null)
             throw new NuaaAntException("找不到用户！");
         return res;

@@ -4,27 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderService {
-    List<Map<String, Object>> GetTemplateList(String sessionID);
+    void AddOrder(int userID, Order order);
 
-    void AddTemplate(String sessionID, Order order);
+    List<Map<String, Object>> GetOrderList(int userID, String searchText, int typeIndex, int sortIndex, int filterID);
 
-    void CheckGiver(String sessionID, int id);
+    Map<String, Object> GetOrderDetail(int userID, int orderID);
 
-    Order GetTemplateByID(String sessionID, int id);
+    int GetState(int orderID);
 
-    void DeleteTemplateByID(String sessionID, int id);
+    boolean CheckExist(int orderID);
 
-    void AddOrder(String sessionID, Order order);
-
-    List<Map<String, Object>> GetOrderList(String sessionID, String searchText, int typeIndex, int sortIndex, int filterID);
-
-    Map<String, Object> GetOrderByID(String sessionID, int orderID);
-
-    void Apply(String sessionID, int orderID);
-
-    void CancelApply(String sessionID, int orderID);
-
-    void Like(String sessionID, int orderID);
-
-    void CancelLike(String sessionID, int orderID);
+    int GetGiverID(int orderID);
 }

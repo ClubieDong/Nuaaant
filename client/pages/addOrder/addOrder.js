@@ -63,7 +63,7 @@ Page({
   },
 
   loadTemplate: async function () {
-    const data = await util.get("/order/template/list", {
+    const data = await util.get("/template/list", {
       sessionID: await util.login()
     });
     const templateList = [];
@@ -82,9 +82,9 @@ Page({
 
   chooseTemplate: function (r) {
     util.tryCatch(this, async () => {
-      const data = await util.get("/order/template", {
+      const data = await util.get("/template/get", {
         sessionID: await util.login(),
-        id: r.currentTarget.dataset.id
+        templateID: r.currentTarget.dataset.id
       });
       this.setData({
         typeIndex: data.typeIndex,
@@ -131,9 +131,9 @@ Page({
       });
       if (!res.confirm)
         return;
-      await util.del("/order/template", {
+      await util.del("/template/delete", {
         sessionID: await util.login(),
-        id: r.currentTarget.dataset.id
+        templateID: r.currentTarget.dataset.id
       });
       this.setData({
         toptips_msg: "模板删除成功",
@@ -220,7 +220,7 @@ Page({
           break;
       }
       util.deleteNull(data);
-      await util.post("/order/template", data);
+      await util.post("/template/add", data);
       this.setData({
         toptips_msg: "模板添加成功",
         toptips_type: "success",
@@ -308,7 +308,7 @@ Page({
           break;
       }
       util.deleteNull(data);
-      await util.post("/order", data);
+      await util.post("/order/add", data);
       this.setData({
         toptips_msg: "需求发布成功",
         toptips_type: "success",
