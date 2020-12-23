@@ -94,4 +94,12 @@ public class OrderServiceImpl implements OrderService {
             throw new NuaaAntException("无接单者或找不到模板/需求");
         return res;
     }
+
+    @Override
+    public void EditOrder(int userID, int orderID, Order order) {
+        var giverID = GetGiverID(orderID);
+        if (userID != giverID)
+            throw new NuaaAntException("无权限");
+        orderMapper.EditOrder(orderID, order);
+    }
 }

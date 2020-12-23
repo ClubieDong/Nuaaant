@@ -38,6 +38,24 @@ Page({
       });
     });
   },
+  
+  onHide: function () {
+    this.setData({
+      hiding: true
+    });
+  },
+
+  onShow: function () {
+    if (this.data.hiding) {
+      this.setData({
+        hiding: false
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    }
+  },
+
 
   getOrders: async function () {
     const data = await util.get("/order/list", {
@@ -68,7 +86,7 @@ Page({
   },
 
   selectOrder: function (r) {
-    wxp.navigateTo({
+    wx.navigateTo({
       url: "/pages/viewOrder/viewOrder?orderID=" + r.currentTarget.dataset.id,
     });
   }

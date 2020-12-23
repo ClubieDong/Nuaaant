@@ -17,4 +17,6 @@ public interface OrderService {
     int GetGiverID(int orderID);
 
     int GetTakerID(int orderID);
+
+    void EditOrder(int userID, int orderID, Order order);
 }

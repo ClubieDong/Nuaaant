@@ -90,6 +90,23 @@ Page({
     });
   },
 
+  onHide: function () {
+    this.setData({
+      hiding: true
+    });
+  },
+
+  onShow: function () {
+    if (this.data.hiding) {
+      this.setData({
+        hiding: false
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    }
+  },
+
   selectTab: function (r) {
     this.setData({
       tabbarCurrent: Number(r.currentTarget.dataset.tab)
@@ -116,6 +133,9 @@ Page({
 
   apply: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        userType: 2
+      });
       await util.get("/apply", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -128,6 +148,9 @@ Page({
 
   cancelApply: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        userType: 3
+      });
       await util.get("/apply/cancel", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -140,6 +163,10 @@ Page({
 
   like: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        like: true,
+        likeCount: this.data.likeCount + 1
+      });
       await util.get("/like", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -152,6 +179,10 @@ Page({
 
   cancelLike: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        like: false,
+        likeCount: this.data.likeCount - 1
+      });
       await util.get("/like/cancel", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -164,6 +195,9 @@ Page({
 
   chooseTaker: function (r) {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 2
+      });
       await util.get("/giver/choose", {
         sessionID: await util.login(),
         orderID: this.data.orderID,
@@ -177,6 +211,9 @@ Page({
 
   cancelChooseTaker: function (r) {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 1
+      });
       await util.get("/giver/choose/cancel", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -187,8 +224,11 @@ Page({
     });
   },
 
-  withdraw: function() {
+  withdraw: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 0
+      });
       await util.get("/giver/withdraw", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -199,8 +239,11 @@ Page({
     });
   },
 
-  republish: function() {
+  republish: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 1
+      });
       await util.get("/giver/republish", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -211,8 +254,12 @@ Page({
     });
   },
 
-  giveup: function() {
+  giveup: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 1,
+        userType: 3
+      });
       await util.get("/taker/giveup", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -223,8 +270,11 @@ Page({
     });
   },
 
-  submit: function() {
+  submit: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 3,
+      });
       await util.get("/taker/submit", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -235,8 +285,11 @@ Page({
     });
   },
 
-  cancelSubmit: function() {
+  cancelSubmit: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 2,
+      });
       await util.get("/taker/submit/cancel", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -247,8 +300,11 @@ Page({
     });
   },
 
-  acceptResult: function() {
+  acceptResult: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 4,
+      });
       await util.get("/giver/accept", {
         sessionID: await util.login(),
         orderID: this.data.orderID
@@ -259,14 +315,25 @@ Page({
     });
   },
 
-  rejectResult: function() {
+  rejectResult: function () {
     util.tryCatch(this, async () => {
+      this.setData({
+        state: 2
+      });
       await util.get("/giver/reject", {
         sessionID: await util.login(),
         orderID: this.data.orderID
       });
       this.onLoad({
         orderID: this.data.orderID
+      });
+    });
+  },
+
+  editOrder: function () {
+    util.tryCatch(this, async () => {
+      wx.navigateTo({
+        url: "/pages/addOrder/addOrder?orderID=" + this.data.orderID,
       });
     });
   }

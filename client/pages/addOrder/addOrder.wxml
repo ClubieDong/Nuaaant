@@ -160,5 +160,6 @@
 
 <view id="submit-view">
     <button class="submit-btn" type="default" bindtap="saveAsTemplate">存为模版</button>
-    <button class="submit-btn" type="primary" bindtap="submit">发布</button>
+    <button wx:if="{{!isEditOrder}}" class="submit-btn" type="primary" bindtap="submit">发布</button>
+    <button wx:else class="submit-btn" type="primary" bindtap="saveEdit">保存修改</button>
 </view>

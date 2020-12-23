@@ -2,7 +2,6 @@ package com.clubie.nuaaant.order;
 
 import com.clubie.nuaaant.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,5 +34,11 @@ public class OrderController {
     public Map<String, Object> GetOrderDetail(String sessionID, int orderID) {
         var userID = userService.Session2ID(sessionID);
         return orderService.GetOrderDetail(userID, orderID);
+    }
+
+    @PostMapping("/order/edit")
+    public void EditOrder(String sessionID, int orderID, Order order) {
+        var userID = userService.Session2ID(sessionID);
+        orderService.EditOrder(userID, orderID, order);
     }
 }

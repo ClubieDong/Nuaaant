@@ -155,6 +155,8 @@ export const formatPassTime = t => {
   return s + "之前";
 };
 
+export const sleep = t => new Promise(r => setTimeout(r, t));
+
 const sudo = i => {
   if (i == undefined) {
     wx.removeStorageSync("Sudo");

@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/orderList/orderList",
+    "pages/addOrder/addOrder",
     "pages/editUserInfo/editUserInfo",
     "pages/viewOrder/viewOrder",
-    "pages/addOrder/addOrder",
     "pages/index/index"
   ],
   "window": {

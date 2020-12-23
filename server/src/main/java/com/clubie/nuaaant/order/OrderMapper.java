@@ -1,10 +1,9 @@
 package com.clubie.nuaaant.order;
 
-import lombok.Setter;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -54,4 +53,24 @@ public interface OrderMapper {
 
     @Select("SELECT Count(*) FROM Orders WHERE ID = #{orderID} LIMIT 1")
     int CheckExist(int orderID);
+
+    @Update("UPDATE Orders SET" +
+            "    TypeIndex = #{order.TypeIndex}, " +
+            "    Title = #{order.Title}, " + 
+            "    Reward = #{order.Reward}, " + 
+            "    Deadline = #{order.Deadline}, " + 
+            "    FromAddr = #{order.FromAddr}, " + 
+            "    ToAddr = #{order.ToAddr}, " + 
+            "    IsSelf = #{order.IsSelf}, " + 
+            "    SizeIndex = #{order.SizeIndex}, " + 
+            "    WeightIndex = #{order.WeightIndex}, " + 
+            "    ExpressCode = #{order.ExpressCode}, " + 
+            "    QuestionTypeIndex = #{order.QuestionTypeIndex}, " + 
+            "    Duration = #{order.Duration}, " + 
+            "    UnitIndex = #{order.UnitIndex}, " + 
+            "    ReturnTime = #{order.ReturnTime}, " + 
+            "    SimpleDesc = #{order.SimpleDesc}, " + 
+            "    DetailedDesc = #{order.DetailedDesc} " +
+            "WHERE ID = #{orderID}")
+    void EditOrder(int orderID, Order order);
 }

@@ -32,11 +32,11 @@ public interface TemplateMapper {
             ")")
     void AddTemplate(int userID, Template template);
 
-    @Select("SELECT ID, TypeIndex, Title, Reward, Deadline, FromAddr, ToAddr, IsSelf, " +
+    @Select("SELECT TypeIndex, Title, Reward, Deadline, FromAddr, ToAddr, IsSelf, " +
             "       SizeIndex, WeightIndex, ExpressCode, QuestionTypeIndex, Duration, " +
             "       UnitIndex, ReturnTime, SimpleDesc, DetailedDesc " +
             "FROM Orders " +
-            "WHERE ID = #{templateID} AND IsTemplate")
+            "WHERE ID = #{templateID}")
     Template GetTemplate(int templateID);
 
     @Delete("DELETE FROM Orders WHERE ID = #{templateID} AND IsTemplate")

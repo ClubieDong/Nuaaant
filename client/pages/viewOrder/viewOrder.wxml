@@ -52,7 +52,7 @@
 </view>
 
 <view id="op-view" class="inline-view">
-  <view class="op-button" wx:if="{{userType == 0 && state == 0}}">
+  <view class="op-button" wx:if="{{userType == 0 && state == 0}}" bindtap="editOrder">
     <mp-icon icon="pencil" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">修改</view>
   </view>
