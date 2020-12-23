@@ -28,7 +28,7 @@ Page({
 
   onLoad: function (r) {
     util.tryCatch(this, async () => {
-      const data = await util.get("/user", {
+      const data = await util.get("/user/get", {
         sessionID: await util.login()
       });
       this.setData({
@@ -83,7 +83,7 @@ Page({
         email: this.data.email,
       };
       util.deleteNull(data);
-      await util.post("/user", data);
+      await util.post("/user/set", data);
       this.setData({
         toptips_msg: "用户信息更新成功",
         toptips_type: "success",

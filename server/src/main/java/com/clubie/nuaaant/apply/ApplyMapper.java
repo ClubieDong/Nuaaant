@@ -21,4 +21,12 @@ public interface ApplyMapper {
             "INNER JOIN Appliers a ON a.UserID = u.ID " +
             "WHERE a.OrderID = #{orderID}")
     List<Map<String, Object>> GetAppliers(int orderID);
+
+    @Select("SELECT Count(*) FROM Appliers " +
+            "WHERE OrderID = #{orderID} AND UserID = #{userID} " +
+            "LIMIT 1")
+    int IsApplier(int orderID, int userID);
+
+    @Delete("DELETE FROM Appliers WHERE OrderID = #{orderID}")
+    void DeleteAllAppliers(int orderID);
 }

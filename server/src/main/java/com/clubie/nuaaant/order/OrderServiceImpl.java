@@ -83,7 +83,15 @@ public class OrderServiceImpl implements OrderService {
     public int GetGiverID(int orderID) {
         var res = orderMapper.GetGiver(orderID);
         if (res == null)
-            throw new NuaaAntException("找不到模板");
+            throw new NuaaAntException("找不到模板/需求");
+        return res;
+    }
+
+    @Override
+    public int GetTakerID(int orderID) {
+        var res = orderMapper.GetTaker(orderID);
+        if (res == null)
+            throw new NuaaAntException("无接单者或找不到模板/需求");
         return res;
     }
 }

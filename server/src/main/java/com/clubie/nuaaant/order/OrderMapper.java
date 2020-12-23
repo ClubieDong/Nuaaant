@@ -1,5 +1,6 @@
 package com.clubie.nuaaant.order;
 
+import lombok.Setter;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,6 +28,9 @@ public interface OrderMapper {
 
     @Select("SELECT GiverID FROM Orders WHERE ID = #{orderID}")
     Integer GetGiver(int orderID);
+
+    @Select("SELECT TakerID FROM Orders WHERE ID = #{orderID}")
+    Integer GetTaker(int orderID);
 
     // TODO
     @Select("SELECT o.ID, TypeIndex, Deadline, Title, Reward, u.AvatarUrl," +

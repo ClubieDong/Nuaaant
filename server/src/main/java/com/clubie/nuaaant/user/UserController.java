@@ -13,17 +13,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public Map<String, Object> Login(String code) {
         return userService.Login(code);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/get")
     public User GetUserInfo(String sessionID) {
         return userService.GetUserInfo(sessionID);
     }
 
-    @PostMapping("/user")
+    @PostMapping("/user/set")
     public void SetUserInfo(String sessionID, User user) {
         userService.SetUserInfo(sessionID, user);
     }

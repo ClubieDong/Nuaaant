@@ -56,8 +56,8 @@
     <mp-icon icon="pencil" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">修改</view>
   </view>
-  <view class="op-button" wx:if="{{userType == 0 && state == 0}}">
-    <mp-icon icon="done2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+  <view class="op-button" wx:if="{{userType == 0 && state == 0}}" bindtap="republish">
+    <mp-icon icon="share" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">重新发布</view>
   </view>
 
@@ -65,7 +65,7 @@
     <mp-icon icon="group-detail" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">选择接单者</view>
   </view>
-  <view class="op-button" wx:if="{{userType == 0 && state == 1}}">
+  <view class="op-button" wx:if="{{userType == 0 && state == 1}}" bindtap="withdraw">
     <mp-icon icon="previous" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">撤回</view>
   </view>
@@ -80,30 +80,30 @@
     <view class="op-text">申请接单</view>
   </view>
 
-  <view class="op-button" wx:if="{{userType == 0 && state == 2}}">
+  <view class="op-button" wx:if="{{userType == 0 && state == 2}}" bindtap="cancelChooseTaker">
     <mp-icon icon="group-detail" type="field" size="{{70 * rpx}}" color="#07C160EE"></mp-icon>
     <view class="op-text">取消接单者</view>
   </view>
 
-  <view class="op-button" wx:if="{{userType == 1 && state == 2}}">
+  <view class="op-button" wx:if="{{userType == 1 && state == 2}}" bindtap="submit">
     <mp-icon icon="done2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">提交结果</view>
   </view>
-  <view class="op-button" wx:if="{{userType == 1 && state == 2}}">
+  <view class="op-button" wx:if="{{userType == 1 && state == 2}}" bindtap="giveup">
     <mp-icon icon="close2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">放弃接单</view>
   </view>
 
-  <view class="op-button" wx:if="{{userType == 0 && state == 3}}">
+  <view class="op-button" wx:if="{{userType == 0 && state == 3}}" bindtap="acceptResult">
     <mp-icon icon="done2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">确认</view>
   </view>
-  <view class="op-button" wx:if="{{userType == 0 && state == 3}}">
+  <view class="op-button" wx:if="{{userType == 0 && state == 3}}" bindtap="rejectResult">
     <mp-icon icon="close2" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">驳回</view>
   </view>
 
-  <view class="op-button" wx:if="{{userType == 1 && state == 3}}">
+  <view class="op-button" wx:if="{{userType == 1 && state == 3}}" bindtap="cancelSubmit">
     <mp-icon icon="previous" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">撤回提交</view>
   </view>

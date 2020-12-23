@@ -44,7 +44,7 @@ Page({
           score: data.Appliers[i].Score,
         });
       }
-      if (userID == data.TaverID)
+      if (userID == data.TakerID)
         userType = 1;
       else if (userID == data.GiverID)
         userType = 0;
@@ -81,10 +81,10 @@ Page({
         giverAvatarUrl: data.GiverAvatarUrl,
         giverName: data.GiverName,
         giverScore: data.GiverScore,
-        takerID: data.TaverID,
-        takerAvatarUrl: data.TaverAvatarUrl,
-        takerName: data.TaverName,
-        takerScore: data.TaverScore,
+        takerID: data.TakerID,
+        takerAvatarUrl: data.TakerAvatarUrl,
+        takerName: data.TakerName,
+        takerScore: data.TakerScore,
         appliers: appliers
       });
     });
@@ -163,16 +163,111 @@ Page({
   },
 
   chooseTaker: function (r) {
-    console.log(r.currentTarget.dataset.id);
-    // util.tryCatch(this, async () => {
-    //   await util.get("/order/chooseTaker", {
-    //     sessionID: await util.login(),
-    //     orderID: this.data.orderID,
-    //     takerID: r.currentTarget.dataset.id
-    //   });
-    //   this.onLoad({
-    //     orderID: this.data.orderID
-    //   });
-    // });
+    util.tryCatch(this, async () => {
+      await util.get("/giver/choose", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID,
+        takerID: r.currentTarget.dataset.id
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  cancelChooseTaker: function (r) {
+    util.tryCatch(this, async () => {
+      await util.get("/giver/choose/cancel", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  withdraw: function() {
+    util.tryCatch(this, async () => {
+      await util.get("/giver/withdraw", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  republish: function() {
+    util.tryCatch(this, async () => {
+      await util.get("/giver/republish", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  giveup: function() {
+    util.tryCatch(this, async () => {
+      await util.get("/taker/giveup", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  submit: function() {
+    util.tryCatch(this, async () => {
+      await util.get("/taker/submit", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  cancelSubmit: function() {
+    util.tryCatch(this, async () => {
+      await util.get("/taker/submit/cancel", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  acceptResult: function() {
+    util.tryCatch(this, async () => {
+      await util.get("/giver/accept", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  rejectResult: function() {
+    util.tryCatch(this, async () => {
+      await util.get("/giver/reject", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
   }
 });

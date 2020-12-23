@@ -44,4 +44,13 @@ public class ApplyServiceImpl implements ApplyService {
         return res;
     }
 
+    @Override
+    public boolean IsApplier(int orderID, int userID) {
+        return applyMapper.IsApplier(orderID, userID) == 1;
+    }
+
+    @Override
+    public void DeleteAllAppliers(int orderID) {
+        applyMapper.DeleteAllAppliers(orderID);
+    }
 }

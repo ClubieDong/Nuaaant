@@ -58,11 +58,6 @@ export const del = async (subUrl, data) => {
   return response.data;
 };
 
-const sudo = i => {
-  wx.setStorageSync("Sudo", i);
-  wx.setStorageSync("UserID", i);
-}
-
 export const login = async () => {
   let [errSudo, dataSudo] = await to(wxp.getStorage({
     key: "Sudo"
@@ -75,7 +70,7 @@ export const login = async () => {
   }));
   if (err1 != null || err2 != null) {
     data = await wxp.login();
-    data = await get("/login", {
+    data = await get("/user/login", {
       code: data.code
     });
     await wxp.setStorage({
@@ -112,7 +107,7 @@ export const deleteNull = x => {
   for (const key in x)
     if (x[key] == null || x[key] === "")
       delete x[key];
-}
+};
 
 export const formatFutureTime = t => {
   if (t == null)
@@ -135,7 +130,7 @@ export const formatFutureTime = t => {
   else if (delta < 60 * 60 * 24 * 7)
     s = Math.floor(delta / 60 / 60 / 24) + "天";
   return "还剩" + s;
-}
+};
 
 export const formatPassTime = t => {
   if (t == null)
@@ -158,4 +153,15 @@ export const formatPassTime = t => {
   else if (delta < 60 * 60 * 24 * 7)
     s = Math.floor(delta / 60 / 60 / 24) + "天";
   return s + "之前";
-}
+};
+
+const sudo = i => {
+  if (i == undefined) {
+    wx.removeStorageSync("Sudo");
+    wx.removeStorageSync("SessionID");
+  }
+  else {
+    wx.setStorageSync("Sudo", i);
+    wx.setStorageSync("UserID", i);
+  }
+};

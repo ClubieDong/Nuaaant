@@ -15,4 +15,6 @@ public interface OrderService {
     boolean CheckExist(int orderID);
 
     int GetGiverID(int orderID);
+
+    int GetTakerID(int orderID);
 }
