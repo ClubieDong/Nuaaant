@@ -23,6 +23,22 @@ Page({
     orderTypeIcons: app.orderTypeIcons,
     rpx: app.rpx,
 
+    tabbarList: [{
+        text: "接单",
+        iconPath: "/assets/tab1.png",
+        selectedIconPath: "/assets/tab1-chosen.png"
+      },{
+        text: "发布",
+        iconPath: "/assets/tab2.png",
+        selectedIconPath: "/assets/tab2-chosen.png"
+      },{
+        text: "聊天",
+        iconPath: "/assets/tab3.png",
+        selectedIconPath: "/assets/tab3-chosen.png"
+      }
+    ],
+    tabCurrent: 0,
+
     toptips_msg: "",
     toptips_type: "",
     toptips_show: false
@@ -92,5 +108,27 @@ Page({
 
   changeFilter: function () {
     util.tryCatch(this, this.getOrders);
+  },
+
+  tabChange: function (r) {
+    this.setData({
+      tabCurrent: 0
+    });
+    switch (r.detail.index) {
+      case 0:
+        break;
+      case 1:
+        wx.navigateTo({
+          url: "/pages/addOrder/addOrder"
+        });
+        break;
+      case 2:
+        wx.navigateTo({
+          url: "/pages/messageList/messageList"
+        });
+        break;
+      default:
+        break;
+    }
   }
 });

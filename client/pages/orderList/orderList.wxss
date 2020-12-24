@@ -8,6 +8,10 @@ page {
   box-shadow: 5rpx 5rpx 20rpx 0 #576B9544;
 }
 
+.up-shadow {
+  box-shadow: -5rpx -5rpx 20rpx 0 #576B9544;
+}
+
 #search-view {
   display: flex;
   align-items: center;

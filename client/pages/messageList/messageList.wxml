@@ -1,0 +1,17 @@
+<mp-toptips msg="{{toptips_msg}}" type="{{toptips_type}}" show="{{toptips_show}}"></mp-toptips>
+
+<scroll-view scroll-y="true">
+  <view class="cell inline-view {{index == messageList.length - 1 ? 'cell-last' : ''}}" wx:for="{{messageList}}" wx:key="userID" bindtap="sendMessage" data-id="{{item.userID}}">
+    <image class="avatar" src="{{item.avatarUrl}}"></image>
+    <view class="vertical-view message-content-view">
+      <view class="inline-view polar-view">
+        <view class="name">{{item.nickName}}</view>
+        <view class="time">{{item.time}}</view>
+      </view>
+      <view class="inline-view polar-view">
+        <view class="text">{{item.text}}</view>
+        <view class="read" wx:if="{{item.notRead != 0}}">{{item.notRead}}</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

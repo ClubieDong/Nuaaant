@@ -292,19 +292,22 @@ scroll-view {
 
 .remark-bottom {
   box-shadow: 0 -10rpx 10rpx 0 #576B9544;
+  padding-left: 36rpx;
+  padding-right: 28rpx;
+  padding-top: 24rpx;
+  padding-bottom: 50rpx;
 }
 
 .remark-input {
-  padding: 8rpx 32rpx;
+  padding: 10rpx 32rpx;
   border: 2rpx solid #1485EE;
   border-radius: 100rpx;
-  margin: 16rpx;
   flex: 1;
 }
 
 .remark-send-img {
-  height: 70rpx;
-  width: 70rpx;
-  margin-right: 16rpx;
+  height: 76rpx;
+  width: 76rpx;
+  margin-left: 16rpx;
   opacity: 0.8;
 }

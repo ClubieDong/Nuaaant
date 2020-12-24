@@ -14,7 +14,7 @@ public interface RemarkMapper {
             "VALUES (#{userID}, #{orderID}, #{time}, #{text})")
     void AddRemark(int userID, int orderID, Date time, String text);
 
-    @Select("SELECT r.ID, u.AvatarUrl, u.NickName, r.Time, r.Text, " +
+    @Select("SELECT r.ID, r.UserID, u.AvatarUrl, u.NickName, r.Time, r.Text, " +
             "       (SELECT COUNT(*) FROM Agrees WHERE RemarkID = r.ID) AS AgreeCount, " +
             "       (SELECT COUNT(*) FROM Agrees WHERE RemarkID = r.ID AND UserID = #{userID} LIMIT 1) AS Agreed " +
             "FROM Remarks r " +

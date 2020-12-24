@@ -56,3 +56,5 @@
     </view>
   </view>
 </scroll-view>
+
+<mp-tabbar class="up-shadow" list="{{tabbarList}}" current="{{tabCurrent}}" bindchange="tabChange"></mp-tabbar>

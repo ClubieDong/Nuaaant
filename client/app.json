@@ -1,8 +1,10 @@
 {
   "pages": [
-    "pages/allOrderList/allOrderList",
     "pages/orderList/orderList",
+    "pages/messageList/messageList",
     "pages/viewUserInfo/viewUserInfo",
+    "pages/message/message",
+    "pages/allOrderList/allOrderList",
     "pages/viewOrder/viewOrder",
     "pages/addOrder/addOrder",
     "pages/editUserInfo/editUserInfo",

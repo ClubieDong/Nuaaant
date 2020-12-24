@@ -2,7 +2,6 @@
   "navigationBarTitleText": "南航小蚂蚁  By Clubie",
   "usingComponents": {
     "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
-    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon",
-    "mp-tabbar": "weui-miniprogram/tabbar/tabbar"
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"
   }
 }

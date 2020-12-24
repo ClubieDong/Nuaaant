@@ -15,7 +15,7 @@
     <mp-icon icon="pencil" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">编辑信息</view>
   </view>
-  <view class="op-button" wx:else>
+  <view class="op-button" wx:else bindtap="sendMessage">
     <mp-icon icon="contacts" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">私聊</view>
   </view>

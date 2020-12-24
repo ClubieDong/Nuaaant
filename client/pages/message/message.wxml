@@ -1,0 +1,27 @@
+<mp-toptips msg="{{toptips_msg}}" type="{{toptips_type}}" show="{{toptips_show}}"></mp-toptips>
+
+<view class="header"></view>
+
+<scroll-view scroll-y="true">
+  <view wx:if="{{messages.length == 0}}" class="empty-hint">打个招呼吧~</view>
+  <view class="vertical-view" wx:for="{{messages}}" wx:key="id">
+    <view wx:if="{{item.time != ''}}" class="time-view">{{item.time}}</view>
+    <view class="message-view" wx:if="{{item.senderID == userID}}">
+      <image class="avatar shadow" src="{{receiverAvatarUrl}}"></image>
+      <view class="left-angle left-color"></view>
+      <view class="message shadow left-color">{{item.text}}</view>
+    </view>
+    <view class="message-view right-message-view" wx:else>
+      <view class="message shadow right-color">{{item.text}}</view>
+      <view class="right-angle right-color"></view>
+      <image class="avatar shadow" src="{{senderAvatarUrl}}"></image>
+    </view>
+  </view>
+  <view class="last-one"></view>
+</scroll-view>
+
+<view class="inline-view footer">
+  <input class="input" placeholder="发送私聊" model:value="{{input}}" maxlength="65536" confirm-type="send"
+    bindconfirm="send" />
+  <image class="send-img" src="/assets/send.png" bindtap="send"></image>
+</view>

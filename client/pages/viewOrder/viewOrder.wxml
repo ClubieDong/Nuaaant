@@ -263,14 +263,14 @@
       <view class="group-title">发布者</view>
       <view class="cells">
         <view class="cell cell-last inline-view polar-flex-view">
-          <view class="inline-view">
+          <view class="inline-view" bindtap="viewUserInfo" data-id="{{giverID}}">
             <image class="user-avatar" src="{{giverAvatarUrl}}"></image>
             <view>{{giverName}}</view>
             <mp-icon class="user-score-icon align-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD">
             </mp-icon>
             <view class="user-score">{{giverScore}}</view>
           </view>
-          <mp-icon wx:if="{{userID != giverID}}" class="align-icon" icon="contacts" size="{{50 * rpx}}"></mp-icon>
+          <mp-icon wx:if="{{userID != giverID}}" class="align-icon" icon="contacts" size="{{50 * rpx}}" bindtap="sendMessage" data-id="{{giverID}}"></mp-icon>
         </view>
       </view>
 
@@ -278,14 +278,14 @@
       <view class="cells">
         <view wx:if="{{state < 2}}" class="cell cell-last inline-view center-flex-view">虚位以待</view>
         <view wx:else class="cell cell-last inline-view polar-flex-view">
-          <view class="inline-view">
+          <view class="inline-view" bindtap="viewUserInfo" data-id="{{takerID}}">
             <image class="user-avatar" src="{{takerAvatarUrl}}"></image>
             <view>{{takerName}}</view>
             <mp-icon class="user-score-icon align-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD">
             </mp-icon>
             <view class="user-score">{{takerScore}}</view>
           </view>
-          <mp-icon wx:if="{{userID != takerID}}" class="align-icon" icon="contacts" size="{{50 * rpx}}"></mp-icon>
+          <mp-icon wx:if="{{userID != takerID}}" class="align-icon" icon="contacts" size="{{50 * rpx}}" bindtap="sendMessage" data-id="{{takerID}}"></mp-icon>
         </view>
       </view>
 
@@ -295,7 +295,7 @@
         <view wx:else>
           <view wx:for="{{appliers}}" wx:key="id"
             class="cell inline-view polar-flex-view {{index == appliers.length - 1 ? 'cell-last' : ''}}">
-            <view class="inline-view">
+            <view class="inline-view" bindtap="viewUserInfo" data-id="{{item.id}}">
               <image class="user-avatar" src="{{item.avatarUrl}}"></image>
               <view>{{item.name}}</view>
               <mp-icon class="user-score-icon align-icon" icon="star" size="{{50 * rpx}}" type="field"
@@ -306,7 +306,7 @@
             <view class="inline-view">
               <mp-icon wx:if="{{userType == 0 && state == 1}}" class="align-icon choose-icon" icon="done2"
                 size="{{50 * rpx}}" bindtap="chooseTaker" data-id="{{item.id}}"></mp-icon>
-              <mp-icon wx:if="{{userID != item.id}}" class="align-icon" icon="contacts" size="{{50 * rpx}}">
+              <mp-icon wx:if="{{userID != item.id}}" class="align-icon" icon="contacts" size="{{50 * rpx}}" bindtap="sendMessage" data-id="{{item.id}}">
               </mp-icon>
             </view>
           </view>
@@ -320,8 +320,8 @@
         <view class="remark-cell {{index == 0 ? 'remark-cell-first' : ''}}" wx:for="{{remarks}}" wx:key="id">
           <view class="inline-view remark-info">
             <view class="inline-view">
-              <image class="remark-avatar" src="{{item.avatarUrl}}"></image>
-              <view class="remark-user-info">
+              <image class="remark-avatar" src="{{item.avatarUrl}}" bindtap="viewUserInfo" data-id="{{item.userID}}"></image>
+              <view class="remark-user-info" bindtap="viewUserInfo" data-id="{{item.userID}}">
                 <view class="remark-user">{{item.nickName}}</view>
                 <view class="remark-time">{{item.time}}</view>
               </view>

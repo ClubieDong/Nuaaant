@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "消息列表",
+  "usingComponents": {
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"
+  }
+}

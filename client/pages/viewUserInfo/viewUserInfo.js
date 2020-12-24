@@ -75,5 +75,11 @@ Page({
     wx.navigateTo({
       url: "/pages/allOrderList/allOrderList?userID=" + this.data.userID
     });
+  },
+
+  sendMessage: function() {
+    wx.navigateTo({
+      url: "/pages/message/message?userID=" + this.data.userID
+    });
   }
 });

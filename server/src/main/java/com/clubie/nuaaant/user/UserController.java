@@ -34,4 +34,10 @@ public class UserController {
         userService.Session2ID(sessionID);
         return userService.GetUserScores(userID);
     }
+
+    @GetMapping("user/basic")
+    public Map<String, Object> GetBasicInfo(String sessionID, int userID) {
+        userService.Session2ID(sessionID);
+        return userService.GetBasicInfo(userID);
+    }
 }

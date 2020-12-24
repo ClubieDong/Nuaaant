@@ -53,6 +53,7 @@ Page({
       for (const i in data.Remarks)
         remarks.push({
           id: data.Remarks[i].ID,
+          userID: data.Remarks[i].UserID,
           avatarUrl: data.Remarks[i].AvatarUrl,
           nickName: data.Remarks[i].NickName,
           time: util.formatPassTime(data.Remarks[i].Time),
@@ -413,5 +414,17 @@ Page({
     this.setData({
       tabbarCurrent: 2
     });
-  }
+  },
+
+  viewUserInfo: function(r) {
+    wx.navigateTo({
+      url: "/pages/viewUserInfo/viewUserInfo?userID=" + r.currentTarget.dataset.id,
+    });
+  },
+
+  sendMessage: function(r) {
+    wx.navigateTo({
+      url: "/pages/message/message?userID=" + r.currentTarget.dataset.id
+    });
+  },
 });
