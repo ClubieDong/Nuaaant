@@ -4,7 +4,8 @@ const util = require("../../utils/util.js");
 
 Page({
   data: {
-    remarkCount: 0,
+    remarkInput: "",
+    remarks: [],
 
     tabbarCurrent: 0,
     tabbarCoverBase: 100,
@@ -48,6 +49,17 @@ Page({
         userType = 1;
       else if (userID == data.GiverID)
         userType = 0;
+      const remarks = [];
+      for (const i in data.Remarks)
+        remarks.push({
+          id: data.Remarks[i].ID,
+          avatarUrl: data.Remarks[i].AvatarUrl,
+          nickName: data.Remarks[i].NickName,
+          time: util.formatPassTime(data.Remarks[i].Time),
+          agreeCount: data.Remarks[i].AgreeCount,
+          agreed: data.Remarks[i].Agreed,
+          text: data.Remarks[i].Text,
+        });
       this.setData({
         userID: userID,
         orderID: r.orderID,
@@ -75,7 +87,7 @@ Page({
         detailedDesc: data.DetailedDesc,
         duration: data.Duration,
         unitIndex: data.UnitIndex,
-        returnTime: new Date(data.ReturnTime).toLocaleString(),
+        returnTime: data.ReturnTime == undefined ? "" : new Date(data.ReturnTime).toLocaleString(),
 
         giverID: data.GiverID,
         giverAvatarUrl: data.GiverAvatarUrl,
@@ -85,7 +97,8 @@ Page({
         takerAvatarUrl: data.TakerAvatarUrl,
         takerName: data.TakerName,
         takerScore: data.TakerScore,
-        appliers: appliers
+        appliers: appliers,
+        remarks: remarks
       });
     });
   },
@@ -335,6 +348,70 @@ Page({
       wx.navigateTo({
         url: "/pages/addOrder/addOrder?orderID=" + this.data.orderID,
       });
+    });
+  },
+
+  sendRemark: function () {
+    util.tryCatch(this, async () => {
+      const text = this.data.remarkInput;
+      this.setData({
+        remarkInput: ""
+      });
+      await util.post("/remark/add", {
+        sessionID: await util.login(),
+        orderID: this.data.orderID,
+        text: text
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+      this.setData({
+        toptips_msg: "评论成功",
+        toptips_type: "success",
+        toptips_show: true
+      });
+    });
+  },
+
+  agree: function (r) {
+    util.tryCatch(this, async () => {
+      const remarkID = r.currentTarget.dataset.id;
+      const remarkIndex = r.currentTarget.dataset.index;
+      this.setData({
+        ["remarks[" + remarkIndex + "].agreed"]: true,
+        ["remarks[" + remarkIndex + "].agreeCount"]: this.data.remarks[remarkIndex].agreeCount + 1
+      });
+      await util.get("/agree", {
+        sessionID: await util.login(),
+        remarkID: remarkID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  cancelAgree: function (r) {
+    util.tryCatch(this, async () => {
+      const remarkID = r.currentTarget.dataset.id;
+      const remarkIndex = r.currentTarget.dataset.index;
+      this.setData({
+        ["remarks[" + remarkIndex + "].agreed"]: false,
+        ["remarks[" + remarkIndex + "].agreeCount"]: this.data.remarks[remarkIndex].agreeCount - 1
+      });
+      await util.get("/agree/cancel", {
+        sessionID: await util.login(),
+        remarkID: remarkID
+      });
+      this.onLoad({
+        orderID: this.data.orderID
+      });
+    });
+  },
+
+  gotoRemark: function() {
+    this.setData({
+      tabbarCurrent: 2
     });
   }
 });

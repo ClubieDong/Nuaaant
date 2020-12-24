@@ -115,13 +115,15 @@ export const formatFutureTime = t => {
   if (typeof (t) == "string")
     t = new Date(t);
   let delta = t - new Date();
-  if (delta < 0)
+  if (delta < -1000)
     return "已截止";
   delta = Math.floor(delta / 1000);
   if (delta > 60 * 60 * 24 * 7)
     return t.toLocaleDateString();
   let s;
-  if (delta < 60)
+  if (delta < 1)
+    s = "不到一秒";
+  else if (delta < 60)
     s = Math.floor(delta) + "秒";
   else if (delta < 60 * 60)
     s = Math.floor(delta / 60) + "分钟";
@@ -138,13 +140,15 @@ export const formatPassTime = t => {
   if (typeof (t) == "string")
     t = new Date(t);
   let delta = new Date() - t;
-  if (delta < 0)
+  if (delta < -1000)
     return "未开始";
   delta = Math.floor(delta / 1000);
   if (delta > 60 * 60 * 24 * 7)
     return t.toLocaleDateString();
   let s;
-  if (delta < 60)
+  if (delta < 1)
+    s = "不到一秒";
+  else if (delta < 60)
     s = Math.floor(delta) + "秒";
   else if (delta < 60 * 60)
     s = Math.floor(delta / 60) + "分钟";

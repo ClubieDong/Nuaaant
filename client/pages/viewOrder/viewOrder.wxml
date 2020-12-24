@@ -48,7 +48,7 @@
     <view>{{title}}</view>
     <view id="basic-reward">￥{{reward}}</view>
   </view>
-  <view class="basic-text">截止期限：{{deadline}}</view>
+  <view class="basic-text">截止期限：{{deadline == '' ? '无' : deadline}}</view>
 </view>
 
 <view id="op-view" class="inline-view">
@@ -117,9 +117,9 @@
     <view class="op-text">取消关注({{likeCount}})</view>
   </view>
 
-  <view class="op-button">
+  <view class="op-button" bindtap="gotoRemark">
     <mp-icon icon="comment" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
-    <view class="op-text">评论({{remarkCount}})</view>
+    <view class="op-text">评论({{remarks.length}})</view>
   </view>
 </view>
 
@@ -315,5 +315,34 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
+    <view class="remark-tab">
+      <scroll-view scroll-y="true">
+        <view class="remark-cell {{index == 0 ? 'remark-cell-first' : ''}}" wx:for="{{remarks}}" wx:key="id">
+          <view class="inline-view remark-info">
+            <view class="inline-view">
+              <image class="remark-avatar" src="{{item.avatarUrl}}"></image>
+              <view class="remark-user-info">
+                <view class="remark-user">{{item.nickName}}</view>
+                <view class="remark-time">{{item.time}}</view>
+              </view>
+            </view>
+            <view class="inline-view">
+              <image wx:if="{{item.agreed}}" class="remark-agree-img" src="/assets/agreed.png" bindtap="cancelAgree"
+                data-id="{{item.id}}" data-index="{{index}}"></image>
+              <image wx:else class="remark-agree-img" src="/assets/agree.png" bindtap="agree" data-id="{{item.id}}"
+                data-index="{{index}}">
+              </image>
+              <view class="remark-agree-count">{{item.agreeCount}}</view>
+            </view>
+          </view>
+          <view class="remark-text">{{item.text}}</view>
+        </view>
+      </scroll-view>
+      <view class="inline-view remark-bottom">
+        <input class="remark-input" placeholder="评论一下" model:value="{{remarkInput}}" maxlength="65536"
+          confirm-type="send" bindconfirm="sendRemark" />
+        <image class="remark-send-img" src="/assets/send.png" bindtap="sendRemark"></image>
+      </view>
+    </view>
   </swiper-item>
 </swiper>

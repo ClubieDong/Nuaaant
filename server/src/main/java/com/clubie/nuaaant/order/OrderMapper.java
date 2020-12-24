@@ -36,7 +36,8 @@ public interface OrderMapper {
             "       ROUND(u.GiverScoreTotal / u.GiverCount, 1) AS GiverScore, " +
             "       (SELECT COUNT(*) FROM Appliers WHERE OrderID = o.ID) AS TakerCount, " +
             "       (SELECT COUNT(*) FROM Likes WHERE OrderID = o.ID) AS LikeCount, " +
-            "       0 AS RemarkCount, o.PublishTime " +
+            "       (SELECT COUNT(*) FROM Remarks WHERE OrderID = o.ID) AS RemarkCount, " +
+            "       o.PublishTime " +
             "FROM Orders o " +
             "LEFT JOIN Users u ON o.GiverID = u.ID " +
             "WHERE NOT o.IsTemplate " +
@@ -83,7 +84,7 @@ public interface OrderMapper {
             "       ROUND(u.TakerScoreTotal / u.TakerCount, 1) AS TakerScore, " +
             "       (SELECT COUNT(*) FROM Appliers WHERE OrderID = o.ID) AS TakerCount, " +
             "       (SELECT COUNT(*) FROM Likes WHERE OrderID = o.ID) AS LikeCount, " +
-            "       0 AS RemarkCount, " +
+            "       (SELECT COUNT(*) FROM Remarks WHERE OrderID = o.ID) AS RemarkCount, " +
             "       o.PublishTime, o.AcceptTime, o.SubmitTime, o.CompleteTime " +
             "FROM Orders o " +
             "LEFT JOIN Users u ON o.TakerID = u.ID " +

@@ -1,11 +1,11 @@
 {
   "pages": [
-    "pages/viewUserInfo/viewUserInfo",
     "pages/allOrderList/allOrderList",
     "pages/orderList/orderList",
+    "pages/viewUserInfo/viewUserInfo",
+    "pages/viewOrder/viewOrder",
     "pages/addOrder/addOrder",
     "pages/editUserInfo/editUserInfo",
-    "pages/viewOrder/viewOrder",
     "pages/index/index"
   ],
   "window": {

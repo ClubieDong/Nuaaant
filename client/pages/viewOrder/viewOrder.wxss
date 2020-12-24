@@ -119,6 +119,7 @@ page {
   font-weight: normal;
   font-size: 32rpx;
   color: rgba(0, 0, 0, 0.9);
+  z-index: 1;
 }
 
 #tab-cover {
@@ -225,4 +226,85 @@ scroll-view {
 
 .choose-icon {
   margin-right: 8rpx;
+}
+
+.remark-cell {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-width: 0 0 1rpx 0;
+  padding: 16rpx 32rpx;
+}
+
+.remark-cell-first {
+  margin-top: 16rpx;
+  border-width: 1rpx 0;
+}
+
+.remark-info {
+  justify-content: space-between;
+}
+
+.remark-avatar {
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+
+.remark-user {
+  font-weight: normal;
+  font-size: 32rpx;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.remark-time {
+  font-weight: normal;
+  font-size: 24rpx;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: -5rpx;
+}
+
+.remark-agree-img {
+  height: 40rpx;
+  width: 40rpx;
+  margin-right: 8rpx;
+  opacity: 0.8;
+}
+
+.remark-agree-count {
+  font-weight: normal;
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.remark-text {
+  margin-left: 96rpx;
+  font-weight: normal;
+  font-size: 34rpx;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.remark-tab {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.remark-bottom {
+  box-shadow: 0 -10rpx 10rpx 0 #576B9544;
+}
+
+.remark-input {
+  padding: 8rpx 32rpx;
+  border: 2rpx solid #1485EE;
+  border-radius: 100rpx;
+  margin: 16rpx;
+  flex: 1;
+}
+
+.remark-send-img {
+  height: 70rpx;
+  width: 70rpx;
+  margin-right: 16rpx;
+  opacity: 0.8;
 }

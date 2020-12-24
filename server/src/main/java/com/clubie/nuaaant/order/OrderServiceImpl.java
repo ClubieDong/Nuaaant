@@ -2,6 +2,7 @@ package com.clubie.nuaaant.order;
 
 import com.clubie.nuaaant.apply.ApplyService;
 import com.clubie.nuaaant.like.LikeService;
+import com.clubie.nuaaant.remark.RemarkService;
 import com.clubie.nuaaant.user.UserService;
 import com.clubie.nuaaant.utils.NuaaAntException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private LikeService likeService;
+
+    @Autowired
+    private RemarkService remarkService;
 
     @Override
     public void AddOrder(int userID, Order order) {
@@ -106,6 +110,8 @@ public class OrderServiceImpl implements OrderService {
         res.put("Appliers", appliers);
         res.put("Like", likeService.CheckLike(userID, orderID));
         res.put("LikeCount", likeService.GetLikeCount(orderID));
+        var remarks = remarkService.GetRemarks(userID, orderID);
+        res.put("Remarks", remarks);
         return res;
     }
 
