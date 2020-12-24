@@ -17,8 +17,8 @@ public interface OrderMapper {
             "    ExpressCode, QuestionTypeIndex, Duration, UnitIndex, ReturnTime, " +
             "    SimpleDesc, DetailedDesc " +
             ") VALUES(" +
-            "    #{userID}, 1, 1, #{publishTime}, #{order.TypeIndex}, #{order.Title}, " +
-            "    #{order.Reward}, #{order.Deadline}, #{order.romAddr}, #{order.ToAddr}, " +
+            "    #{userID}, 0, 1, #{publishTime}, #{order.TypeIndex}, #{order.Title}, " +
+            "    #{order.Reward}, #{order.Deadline}, #{order.FromAddr}, #{order.ToAddr}, " +
             "    #{order.IsSelf}, #{order.SizeIndex}, #{order.WeightIndex}, #{order.ExpressCode}, " +
             "    #{order.QuestionTypeIndex}, #{order.Duration}, #{order.UnitIndex}, " +
             "    #{order.ReturnTime}, #{order.SimpleDesc}, #{order.DetailedDesc}" +
@@ -31,14 +31,18 @@ public interface OrderMapper {
     @Select("SELECT TakerID FROM Orders WHERE ID = #{orderID}")
     Integer GetTaker(int orderID);
 
-    // TODO
-    @Select("SELECT o.ID, TypeIndex, Deadline, Title, Reward, u.AvatarUrl," +
-            "       u.NickName AS GiverName, 4.5 AS GiverScore, 5 AS TakerCount, " +
-            "       5 AS LikeCount, 5 AS RemarkCount " +
+    @Select("SELECT o.ID, o.TypeIndex, o.Deadline, o.Title, o.Reward, " +
+            "       u.AvatarUrl AS GiverAvatarUrl, u.NickName AS GiverName, " +
+            "       ROUND(u.GiverScoreTotal / u.GiverCount, 1) AS GiverScore, " +
+            "       (SELECT COUNT(*) FROM Appliers WHERE OrderID = o.ID) AS TakerCount, " +
+            "       (SELECT COUNT(*) FROM Likes WHERE OrderID = o.ID) AS LikeCount, " +
+            "       0 AS RemarkCount, o.PublishTime " +
             "FROM Orders o " +
-            "INNER JOIN Users u ON o.GiverID = u.ID " +
-            "WHERE NOT IsTemplate")
-    List<Map<String, Object>> GetOrderList();
+            "LEFT JOIN Users u ON o.GiverID = u.ID " +
+            "WHERE NOT o.IsTemplate " +
+            "      AND (#{searchText} = '%%' OR o.Title LIKE #{searchText}) " +
+            "      AND (#{typeIndex} = 0 OR o.TypeIndex = #{typeIndex})")
+    List<Map<String, Object>> GetOrderList(int userID, String searchText, int typeIndex);
 
     @Select("SELECT TypeIndex, Title, Reward, Deadline, FromAddr, ToAddr, IsSelf, SizeIndex, " +
             "       WeightIndex, ExpressCode, QuestionTypeIndex, Duration, UnitIndex, " +
@@ -73,4 +77,18 @@ public interface OrderMapper {
             "    DetailedDesc = #{order.DetailedDesc} " +
             "WHERE ID = #{orderID}")
     void EditOrder(int orderID, Order order);
+
+    @Select("SELECT o.ID, o.State, o.TypeIndex, o.Deadline, o.Title, o.Reward, " +
+            "       u.AvatarUrl AS TakerAvatarUrl, u.NickName AS TakerName, " +
+            "       ROUND(u.TakerScoreTotal / u.TakerCount, 1) AS TakerScore, " +
+            "       (SELECT COUNT(*) FROM Appliers WHERE OrderID = o.ID) AS TakerCount, " +
+            "       (SELECT COUNT(*) FROM Likes WHERE OrderID = o.ID) AS LikeCount, " +
+            "       0 AS RemarkCount, " +
+            "       o.PublishTime, o.AcceptTime, o.SubmitTime, o.CompleteTime " +
+            "FROM Orders o " +
+            "LEFT JOIN Users u ON o.TakerID = u.ID " +
+            "WHERE NOT o.IsTemplate AND o.GiverID = #{userID} " +
+            "      AND (#{searchText} = '%%' OR o.Title LIKE #{searchText}) " +
+            "      AND (#{typeIndex} = 0 OR o.TypeIndex = #{typeIndex})")
+    List<Map<String, Object>> GetUserOrderList(int userID, String searchText, int typeIndex);
 }

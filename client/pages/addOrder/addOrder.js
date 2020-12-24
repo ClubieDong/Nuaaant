@@ -140,7 +140,6 @@ Page({
 
   deleteTemplate: function (r) {
     util.tryCatch(this, async () => {
-      console.log(r.currentTarget.dataset.id);
       const res = await wxp.showModal({
         title: "警告",
         content: "确认要删除模板吗？",
@@ -416,7 +415,6 @@ Page({
       }
       util.deleteNull(data);
       data.orderID = this.data.orderID;
-      console.log(data);
       await util.post("/order/edit", data);
       this.setData({
         toptips_msg: "保存修改成功",

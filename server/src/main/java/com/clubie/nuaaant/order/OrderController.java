@@ -41,4 +41,11 @@ public class OrderController {
         var userID = userService.Session2ID(sessionID);
         orderService.EditOrder(userID, orderID, order);
     }
+
+    @GetMapping("/order/list/user")
+    public List<Map<String, Object>> GetUserOrderList(String sessionID, int userID, String searchText,
+                                                      int typeIndex, int sortIndex, int filterID) {
+        userService.Session2ID(sessionID);
+        return orderService.GetUserOrderList(userID, searchText, typeIndex, sortIndex, filterID);
+    }
 }

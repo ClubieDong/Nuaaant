@@ -69,5 +69,11 @@ Page({
     wx.navigateTo({
       url: "/pages/editUserInfo/editUserInfo",
     });
+  },
+
+  viewAllOrders: function() {
+    wx.navigateTo({
+      url: "/pages/allOrderList/allOrderList?userID=" + this.data.userID
+    });
   }
 });

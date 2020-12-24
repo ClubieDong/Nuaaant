@@ -48,7 +48,7 @@ public interface UserMapper {
     @Select("SELECT ID FROM Users WHERE SessionID = #{sessionID}")
     Integer GetUserIDBySessionID(String sessionID);
 
-    @Select("SELECT AvatarUrl, NickName, 4.5 AS Score " +
+    @Select("SELECT AvatarUrl, NickName " +
             "FROM Users WHERE ID = #{userID}")
     Map<String, Object> GetBasicInfo(int userID);
 

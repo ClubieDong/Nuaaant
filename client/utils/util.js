@@ -161,8 +161,7 @@ const sudo = i => {
   if (i == undefined) {
     wx.removeStorageSync("Sudo");
     wx.removeStorageSync("SessionID");
-  }
-  else {
+  } else {
     wx.setStorageSync("Sudo", i);
     wx.setStorageSync("UserID", i);
   }

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "完善个人信息",
+  "navigationBarTitleText": "个人主页",
   "usingComponents": {
     "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
     "mp-form": "/miniprogram_npm/weui-miniprogram/form/form",

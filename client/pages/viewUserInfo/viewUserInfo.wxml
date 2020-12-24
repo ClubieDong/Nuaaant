@@ -7,7 +7,7 @@
     <view id="name-view">{{nickName}}</view>
   </view>
 
-  <view class="op-button">
+  <view class="op-button" bindtap="viewAllOrders">
     <mp-icon icon="photo-wall" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
     <view class="op-text">全部订单</view>
   </view>

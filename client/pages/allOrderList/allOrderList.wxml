@@ -1,0 +1,161 @@
+<mp-toptips msg="{{toptips_msg}}" type="{{toptips_type}}" show="{{toptips_show}}"></mp-toptips>
+
+<view class="shadow">
+  <view id="search-view">
+    <mp-icon icon="search" size="{{50 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+    <input id="search-input" placeholder="搜索" model:value="{{searchText}}" maxlength="50" confirm-type="search" bindchange="changeFilter"/>
+  </view>
+
+  <view id="tabbar" class="inline-view">
+    <view class="tab-view {{tabbarCurrent == 0 ? 'chosen-tab' : ''}}" bindtap="selectTab" data-tab="0">已完成</view>
+    <view class="tab-view {{tabbarCurrent == 1 ? 'chosen-tab' : ''}}" bindtap="selectTab" data-tab="1">进行中</view>
+    <view class="tab-view {{tabbarCurrent == 2 ? 'chosen-tab' : ''}}" bindtap="selectTab" data-tab="2">等待接单</view>
+    <view id="tab-cover" style="left:{{tabbarCoverBase + tabbarCoverDelta}}rpx;"></view>
+  </view>
+
+  <view id="filter-view">
+    <picker class="filter-picker" style="background-color:{{typeIndex == 0 ? '#1485EE11' : '#FFC30033'}}"
+      model:value="{{typeIndex}}" range="{{orderTypes}}" bindchange="changeFilter">
+      <text class="filter-text">{{typeIndex == 0 ? "类别" : orderTypes[typeIndex]}}</text>
+      <mp-icon class="filter-icon" icon="arrow" size="{{18 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+    </picker>
+    <picker class="filter-picker" style="background-color:{{sortIndex == 0 ? '#1485EE11' : '#FFC30033'}}"
+      model:value="{{sortIndex}}" range="{{sortTypes}}" bindchange="changeFilter">
+      <text>{{sortIndex == 0 ? "排序" : sortTypes[sortIndex]}}</text>
+      <mp-icon class="filter-icon" icon="arrow" size="{{18 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+    </picker>
+    <picker class="filter-picker" style="background-color:{{filterIndex == 0 ? '#1485EE11' : '#FFC30033'}}"
+      model:value="{{filterIndex}}" range="{{filters}}" bindchange="changeFilter">
+      <view style="display:inline-block">
+        <text>{{filterIndex == 0 ? "高级筛选" : filters[filterIndex]}}</text>
+      </view>
+      <mp-icon class="filter-icon" icon="arrow" size="{{18 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+    </picker>
+  </view>
+</view>
+
+<swiper model:current="{{tabbarCurrent}}" bindtransition="tabbarTransition" bindanimationfinish="tabbarTransitionEnd">
+  <swiper-item>
+    <view wx:if="{{finishedOrders.length == 0}}" class="inline-view no-order-view">暂无订单</view>
+    <scroll-view wx:else scroll-y="true">
+      <view class="order-view shadow" wx:for="{{finishedOrders}}" wx:key="id" data-id="{{item.id}}" data-type="finished"
+        bindtap="selectOrder">
+        <view class="order-view-1">
+          <view class="order-type">
+            <mp-icon icon="{{orderTypeIcons[item.typeIndex]}}" size="{{50 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+            <view>类别：{{orderTypes[item.typeIndex]}}</view>
+          </view>
+          <view wx:if="{{0 < item.state && item.state < 4}}">
+            {{item.timeLeft == '' ? '无截止期限' : item.timeLeft}}
+          </view>
+        </view>
+        <view class="order-view-2">
+          <view>{{item.title}}</view>
+          <view class="order-reward">￥{{item.reward}}</view>
+        </view>
+        <view class="order-view-3" wx:if="{{item.state >= 2}}">
+          <view>接单：</view>
+          <image class="order-avatar" src="{{item.takerAvatarUrl}}"></image>
+          <view>{{item.takerName}}</view>
+          <mp-icon class="order-score-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD"></mp-icon>
+          <view class="order-score">{{item.takerScore}}</view>
+        </view>
+        <view class="order-view-3" wx:else>
+          {{item.takerCount == 0 ? "等待接单中" : item.takerCount + "人愿意接单"}}
+        </view>
+        <view class="order-view-4">
+          <view wx:if="{{item.state == 1}}">发布于 {{item.publishTime}}</view>
+          <view wx:if="{{item.state == 2}}">接单于 {{item.acceptTime}}</view>
+          <view wx:if="{{item.state == 3}}">提交于 {{item.submitTime}}</view>
+          <view wx:if="{{item.state == 4}}">完成于 {{item.completeTime}}</view>
+          <view class="order-like-remark">
+            <view class="order-like">{{item.likeCount}} 关注</view>
+            <view>{{item.remarkCount}} 评论</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <view wx:if="{{ongoingOrders.length == 0}}" class="inline-view no-order-view">暂无订单</view>
+    <scroll-view wx:else scroll-y="true">
+      <view class="order-view shadow" wx:for="{{ongoingOrders}}" wx:key="id" data-id="{{item.id}}" data-type="ongoing"
+        bindtap="selectOrder">
+        <view class="order-view-1">
+          <view class="order-type">
+            <mp-icon icon="{{orderTypeIcons[item.typeIndex]}}" size="{{50 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+            <view>类别：{{orderTypes[item.typeIndex]}}</view>
+          </view>
+          <view wx:if="{{0 < item.state && item.state < 4}}">
+            {{item.timeLeft == '' ? '无截止期限' : item.timeLeft}}
+          </view>
+        </view>
+        <view class="order-view-2">
+          <view>{{item.title}}</view>
+          <view class="order-reward">￥{{item.reward}}</view>
+        </view>
+        <view class="order-view-3" wx:if="{{item.state >= 2}}">
+          <view>接单：</view>
+          <image class="order-avatar" src="{{item.takerAvatarUrl}}"></image>
+          <view>{{item.takerName}}</view>
+          <mp-icon class="order-score-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD"></mp-icon>
+          <view class="order-score">{{item.takerScore}}</view>
+        </view>
+        <view class="order-view-3" wx:else>
+          {{item.takerCount == 0 ? "等待接单中" : item.takerCount + "人愿意接单"}}
+        </view>
+        <view class="order-view-4">
+          <view wx:if="{{item.state == 1}}">发布于 {{item.publishTime}}</view>
+          <view wx:if="{{item.state == 2}}">接单于 {{item.acceptTime}}</view>
+          <view wx:if="{{item.state == 3}}">提交于 {{item.submitTime}}</view>
+          <view wx:if="{{item.state == 4}}">完成于 {{item.completeTime}}</view>
+          <view class="order-like-remark">
+            <view class="order-like">{{item.likeCount}} 关注</view>
+            <view>{{item.remarkCount}} 评论</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <view wx:if="{{waitingOrders.length == 0}}" class="inline-view no-order-view">暂无订单</view>
+    <scroll-view wx:else scroll-y="true">
+      <view class="order-view shadow" wx:for="{{waitingOrders}}" wx:key="id" data-id="{{item.id}}" data-type="waiting"
+        bindtap="selectOrder">
+        <view class="order-view-1">
+          <view class="order-type">
+            <mp-icon icon="{{orderTypeIcons[item.typeIndex]}}" size="{{50 * rpx}}" color="rgba(0,0,0,0.7)"></mp-icon>
+            <view>类别：{{orderTypes[item.typeIndex]}}</view>
+          </view>
+          <view wx:if="{{0 < item.state && item.state < 4}}">
+            {{item.timeLeft == '' ? '无截止期限' : item.timeLeft}}
+          </view>
+        </view>
+        <view class="order-view-2">
+          <view>{{item.title}}</view>
+          <view class="order-reward">￥{{item.reward}}</view>
+        </view>
+        <view class="order-view-3" wx:if="{{item.state >= 2}}">
+          <view>接单：</view>
+          <image class="order-avatar" src="{{item.takerAvatarUrl}}"></image>
+          <view>{{item.takerName}}</view>
+          <mp-icon class="order-score-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD"></mp-icon>
+          <view class="order-score">{{item.takerScore}}</view>
+        </view>
+        <view class="order-view-3" wx:else>
+          {{item.takerCount == 0 ? "等待接单中" : item.takerCount + "人愿意接单"}}
+        </view>
+        <view class="order-view-4">
+          <view wx:if="{{item.state == 1}}">发布于 {{item.publishTime}}</view>
+          <view wx:if="{{item.state == 2}}">接单于 {{item.acceptTime}}</view>
+          <view wx:if="{{item.state == 3}}">提交于 {{item.submitTime}}</view>
+          <view wx:if="{{item.state == 4}}">完成于 {{item.completeTime}}</view>
+          <view class="order-like-remark">
+            <view class="order-like">{{item.likeCount}} 关注</view>
+            <view>{{item.remarkCount}} 评论</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+</swiper>

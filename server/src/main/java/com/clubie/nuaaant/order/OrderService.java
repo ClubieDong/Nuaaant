@@ -19,4 +19,6 @@ public interface OrderService {
     int GetTakerID(int orderID);
 
     void EditOrder(int userID, int orderID, Order order);
+
+    List<Map<String, Object>> GetUserOrderList(int userID, String searchText, int typeIndex, int sortIndex, int filterID);
 }
