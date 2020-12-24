@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -87,8 +88,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User GetUserInfo(String sessionID) {
-        var res = userMapper.GetUserBySessionID(sessionID);
+    public User GetUserInfo(int userID) {
+        var res = userMapper.GetUserInfo(userID);
         if (res == null)
             throw new NuaaAntException("找不到用户！");
         Emptify(res);
@@ -112,6 +113,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Object> GetBasicInfo(int userID) {
         var res = userMapper.GetBasicInfo(userID);
+        if (res == null)
+            throw new NuaaAntException("找不到用户！");
+        return res;
+    }
+
+    @Override
+    public Map<String, Object> GetUserScores(int userID) {
+        var res = userMapper.GetUserScores(userID);
         if (res == null)
             throw new NuaaAntException("找不到用户！");
         return res;

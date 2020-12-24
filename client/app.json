@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/viewUserInfo/viewUserInfo",
+    "pages/editUserInfo/editUserInfo",
     "pages/orderList/orderList",
     "pages/addOrder/addOrder",
-    "pages/editUserInfo/editUserInfo",
     "pages/viewOrder/viewOrder",
     "pages/index/index"
   ],

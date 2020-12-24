@@ -1,0 +1,141 @@
+page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+scroll-view {
+  display: flex;
+  flex: 1;
+}
+
+.group-title {
+  font-weight: normal;
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.6);
+  margin-left: 32rpx;
+  margin-right: 32rpx;
+  margin-top: 32rpx;
+  margin-bottom: 8rpx;
+}
+
+.cells {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.3);
+  border-width: 1rpx 0;
+  padding: 0 16rpx;
+}
+
+.cell {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-width: 0 0 1rpx 0;
+  font-weight: normal;
+  font-size: 32rpx;
+  color: rgba(0, 0, 0, 0.8);
+  padding: 16rpx 16rpx;
+}
+
+.cell-last {
+  border-width: 0;
+}
+
+.inline-view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.vertical-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-title {
+  width: 210rpx;
+  font-weight: normal;
+  font-size: 34rpx;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.textarea-cell {
+  padding: 24rpx 32rpx;
+  font-weight: normal;
+  font-size: 32rpx;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.bottom {
+  margin-bottom: 64rpx;
+}
+
+#basic-info {
+  margin-top: 16rpx;
+  justify-content: center;
+}
+
+#avatar-view {
+  margin: 0 64rpx;
+}
+
+#avatar-img {
+  height: 150rpx;
+  width: 150rpx;
+  border-radius: 50%;
+}
+
+#name-view {
+  font-weight: bold;
+  font-size: 40rpx;
+  color: rgb(0, 0, 0);
+}
+
+.op-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140rpx;
+}
+
+.op-text {
+  font-weight: normal;
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.9);
+  margin-top: -5rpx;
+}
+
+.align-icon {
+  margin-bottom: 5rpx;
+}
+
+.score-view {
+  margin: 32rpx;
+}
+
+.score-title {
+  font-weight: normal;
+  font-size: 32rpx;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.score-count {
+  font-weight: bold;
+  font-size: 32rpx;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.score {
+  font-weight: bold;
+  font-size: 32rpx;
+  color: #ED612DEE;
+}
+
+.score-icon {
+  margin-left: 16rpx;
+}
+
+.scores {
+  justify-content: center;
+  box-shadow: 0 20rpx 20rpx 0 #576B9544;
+}

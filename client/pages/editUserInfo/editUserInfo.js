@@ -29,7 +29,8 @@ Page({
   onLoad: function (r) {
     util.tryCatch(this, async () => {
       const data = await util.get("/user/get", {
-        sessionID: await util.login()
+        sessionID: await util.login(),
+        userID: await util.getUserID()
       });
       this.setData({
         avatarUrl: util.emptify(data.avatarUrl),
@@ -88,7 +89,9 @@ Page({
         toptips_msg: "用户信息更新成功",
         toptips_type: "success",
         toptips_show: true
-      });
+      });      
+      await util.sleep(1000);
+      wx.navigateBack();
     });
   }
 });

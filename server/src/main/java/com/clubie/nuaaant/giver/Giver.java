@@ -9,6 +9,6 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class Giver extends User {
-    private BigDecimal GiverScoreTotal;
-    private Integer GiverScoreCount;
+    private BigDecimal GiverScore;
+    private Integer GiverCount;
 }

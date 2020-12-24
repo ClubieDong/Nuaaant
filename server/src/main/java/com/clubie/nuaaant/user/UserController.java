@@ -19,8 +19,9 @@ public class UserController {
     }
 
     @GetMapping("/user/get")
-    public User GetUserInfo(String sessionID) {
-        return userService.GetUserInfo(sessionID);
+    public User GetUserInfo(String sessionID, int userID) {
+        userService.Session2ID(sessionID);
+        return userService.GetUserInfo(userID);
     }
 
     @PostMapping("/user/set")
@@ -28,4 +29,9 @@ public class UserController {
         userService.SetUserInfo(sessionID, user);
     }
 
+    @GetMapping("user/score")
+    public Map<String, Object> GetUserScores(String sessionID, int userID) {
+        userService.Session2ID(sessionID);
+        return userService.GetUserScores(userID);
+    }
 }

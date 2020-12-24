@@ -24,11 +24,11 @@ public interface UserMapper {
             "WHERE OpenID = #{openID}")
     void UpdateSession(String openID, String sessionKey, String sessionID);
 
-    @Select("SELECT ID, AvatarUrl, NickName, Gender, Motto, CollegeIndex, " +
+    @Select("SELECT AvatarUrl, NickName, Gender, Motto, CollegeIndex, " +
             "       GradeIndex, Dormitory, StudentID, RealName, Phone, Email " +
             "FROM Users " +
-            "WHERE SessionID = #{sessionID}")
-    User GetUserBySessionID(String sessionID);
+            "WHERE ID = #{userID}")
+    User GetUserInfo(int userID);
 
     @Update("UPDATE Users SET " +
             "    AvatarUrl = #{user.AvatarUrl}, " +
@@ -51,4 +51,10 @@ public interface UserMapper {
     @Select("SELECT AvatarUrl, NickName, 4.5 AS Score " +
             "FROM Users WHERE ID = #{userID}")
     Map<String, Object> GetBasicInfo(int userID);
+
+    @Select("SELECT ROUND(GiverScoreTotal / GiverCount, 1) AS GiverScore, " +
+            "       ROUND(TakerScoreTotal / TakerCount, 1) AS TakerScore, " +
+            "       GiverCount, TakerCount " +
+            "FROM Users WHERE ID = #{userID}")
+    Map<String, Object> GetUserScores(int userID);
 }

@@ -1,0 +1,97 @@
+<mp-toptips msg="{{toptips_msg}}" type="{{toptips_type}}" show="{{toptips_show}}"></mp-toptips>
+
+<view id="basic-info" class="inline-view">
+  <view class="vertical-view" id="avatar-view">
+    <image wx:if="{{avatarUrl != ''}}" id="avatar-img" src="{{avatarUrl}}"></image>
+    <mp-icon wx:else icon="add2" size="{{150 * rpx}}"></mp-icon>
+    <view id="name-view">{{nickName}}</view>
+  </view>
+
+  <view class="op-button">
+    <mp-icon icon="photo-wall" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">全部订单</view>
+  </view>
+  <view class="op-button" wx:if="{{myUserID == userID}}" bindtap="editInfo">
+    <mp-icon icon="pencil" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">编辑信息</view>
+  </view>
+  <view class="op-button" wx:else>
+    <mp-icon icon="contacts" size="{{70 * rpx}}" color="rgba(0,0,0,0.8)"></mp-icon>
+    <view class="op-text">私聊</view>
+  </view>
+</view>
+
+<view class="inline-view scores">
+  <view class="vertical-view score-view">
+    <view class="score-title">发单</view>
+    <view class="inline-view">
+      <view class="score-count">{{giverCount}}单</view>
+      <mp-icon class="score-icon align-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD">
+      </mp-icon>
+      <view class="score">{{giverScore}}</view>
+    </view>
+  </view>
+  <view class="vertical-view score-view">
+    <view class="score-title">接单</view>
+    <view class="inline-view">
+      <view class="score-count">{{takerCount}}单</view>
+      <mp-icon class="score-icon align-icon" icon="star" size="{{50 * rpx}}" type="field" color="#ED612DDD">
+      </mp-icon>
+      <view class="score">{{takerScore}}</view>
+    </view>
+  </view>
+</view>
+
+<scroll-view scroll-y="true">
+
+  <view class="group-title">基础信息</view>
+  <view class="cells">
+    <view class="cell inline-view">
+      <view class="info-title">昵称</view>
+      <view>{{nickName}}</view>
+    </view>
+    <view class="cell inline-view cell-last">
+      <view class="info-title">性别</view>
+      <view>{{gender == 1 ? "男" : gender == 2 ? "女" : "保密"}}</view>
+    </view>
+  </view>
+  <view class="group-title">个人简介</view>
+  <view class="cells textarea-cell">
+    {{motto}}
+  </view>
+  <view class="group-title">学校信息</view>
+  <view class="cells">
+    <view class="cell inline-view">
+      <view class="info-title">学院</view>
+      <view>{{colleges[collegeIndex]}}</view>
+    </view>
+    <view class="cell inline-view">
+      <view class="info-title">年级</view>
+      <view>{{grades[gradeIndex]}}</view>
+    </view>
+    <view class="cell inline-view cell-last">
+      <view class="info-title">宿舍</view>
+      <view>{{dormitory}}</view>
+    </view>
+  </view>
+  <view class="group-title">认证信息</view>
+  <view class="cells bottom">
+    <view class="cell inline-view">
+      <view class="info-title">学号</view>
+      <view>{{studentID}}</view>
+    </view>
+    <view class="cell inline-view">
+      <view class="info-title">真实姓名</view>
+      <view>{{realName}}</view>
+    </view>
+    <view class="cell inline-view">
+      <view class="info-title">手机号</view>
+      <view>{{phone}}</view>
+    </view>
+    <view class="cell inline-view cell-last">
+      <view class="info-title">邮箱</view>
+      <view>{{email}}</view>
+    </view>
+  </view>
+
+</scroll-view>

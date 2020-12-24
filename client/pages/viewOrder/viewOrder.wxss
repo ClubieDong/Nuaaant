@@ -154,7 +154,6 @@ swiper-item {
 scroll-view {
   display: flex;
   flex: 1;
-  padding-bottom: 32rpx;
 }
 
 .group-title {
@@ -181,7 +180,7 @@ scroll-view {
   font-weight: normal;
   font-size: 32rpx;
   color: rgba(0, 0, 0, 0.8);
-  padding: 16rpx 16rpx;
+  padding: 16rpx;
 }
 
 .cell-last {
