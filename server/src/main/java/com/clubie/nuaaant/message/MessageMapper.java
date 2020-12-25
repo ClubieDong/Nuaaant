@@ -30,7 +30,7 @@ public interface MessageMapper {
             "       (SELECT Max(Time) FROM Messages WHERE SenderID = UserID OR ReceiverID = UserID) AS Time, " +
             "       (SELECT Text FROM Messages WHERE SenderID = UserID OR ReceiverID = UserID " +
             "        ORDER BY Time DESC LIMIT 1) AS Text, " +
-            "       (SELECT Count(*) FROM Messages WHERE SenderID = UserID AND NOT HasRead) As NotRead " +
+            "       (SELECT Count(*) FROM Messages WHERE SenderID = UserID AND ReceiverID = #{userID} AND NOT HasRead) As NotRead " +
             "FROM Messages " +
             "WHERE SenderID = #{userID} OR ReceiverID = #{userID} " +
             "GROUP BY UserID " +

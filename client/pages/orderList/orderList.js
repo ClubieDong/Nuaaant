@@ -35,6 +35,10 @@ Page({
         text: "聊天",
         iconPath: "/assets/tab3.png",
         selectedIconPath: "/assets/tab3-chosen.png"
+      },{
+        text: "主页",
+        iconPath: "/assets/tab4.png",
+        selectedIconPath: "/assets/tab4-chosen.png"
       }
     ],
     tabCurrent: 0,
@@ -125,6 +129,11 @@ Page({
       case 2:
         wx.navigateTo({
           url: "/pages/messageList/messageList"
+        });
+        break;
+      case 3:
+        wx.navigateTo({
+          url: "/pages/viewUserInfo/viewUserInfo"
         });
         break;
       default:
